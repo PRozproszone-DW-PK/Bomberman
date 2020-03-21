@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -16,9 +17,10 @@ public class Controller {
     @FXML
     private void SendMessage(ActionEvent event) {
 
-        Task<Void> sendTask = new SendTask();
+        Task<Void> sendTask = new SendTask('e');
         statusLabel.textProperty().bind(sendTask.messageProperty());
         executor.submit(sendTask);
 
     }
+
 }
