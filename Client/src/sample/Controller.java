@@ -18,7 +18,7 @@ public class Controller {
     private void SendMessage(ActionEvent event) {
 
       //  Task<Void> sendTask = new SendTask('e');
-       // statusLabel.textProperty().bind(sendTask.messageProperty());
+       //statusLabel.textProperty().bind(sendTask.messageProperty());
        // executor.submit(sendTask);
 
     }

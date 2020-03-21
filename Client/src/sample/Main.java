@@ -17,7 +17,6 @@ import java.util.concurrent.Executors;
 
 public class Main extends Application {
     private ExecutorService executor = Executors.newSingleThreadExecutor();
-
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
@@ -26,30 +25,30 @@ public class Main extends Application {
         primaryStage.show();
 
 
-        try (Socket server = new Socket( "25.103.157.11", 9797)) {
-
-        root.setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.W) {
-                Task<Void> sendTask = new SendTask('W', server);
-                executor.submit(sendTask);
-                System.out.println("W key was pressed");
-            }
-            if (e.getCode() == KeyCode.A) {
-                Task<Void> sendTask = new SendTask('A', server);
-                executor.submit(sendTask);
-                System.out.println("A key was pressed");
-            }
-            if (e.getCode() == KeyCode.D) {
-                Task<Void> sendTask = new SendTask('D', server);
-                executor.submit(sendTask);
-                System.out.println("D key was pressed");
-            }
-            if (e.getCode() == KeyCode.S) {
-                Task<Void> sendTask = new SendTask('S',server);
-                executor.submit(sendTask);
-                System.out.println("S key was pressed");
-            }
-        });
+        try {
+            Socket server = new Socket( "25.103.157.11", 9797);
+            root.setOnKeyPressed(e -> {
+                if (e.getCode() == KeyCode.W) {
+                    Task<Void> sendTask = new SendTask('W', server);
+                    executor.submit(sendTask);
+                    System.out.println("W key was pressed");
+                }
+                if (e.getCode() == KeyCode.A) {
+                    Task<Void> sendTask = new SendTask('A', server);
+                    executor.submit(sendTask);
+                    System.out.println("A key was pressed");
+                }
+                if (e.getCode() == KeyCode.D) {
+                    Task<Void> sendTask = new SendTask('D', server);
+                    executor.submit(sendTask);
+                    System.out.println("D key was pressed");
+                }
+                if (e.getCode() == KeyCode.S) {
+                    Task<Void> sendTask = new SendTask('S',server);
+                    executor.submit(sendTask);
+                    System.out.println("S key was pressed");
+                }
+            });
         } catch (IOException e) {
             System.out.println("Server connection error");
         }
