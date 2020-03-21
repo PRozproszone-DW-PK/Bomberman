@@ -26,23 +26,24 @@ public class PlayerTask implements Runnable {
         try(InputStream in = socket.getInputStream();
             BufferedInputStream buffIn = new BufferedInputStream(in)){
 
-            while(alive)
+            while(alive && socket.isConnected())
             {
-                buffIn.read(buffer);
-                String msg = new String(buffer);
-                System.out.println(msg);
-                if((msg.substring(0,3)).equals("die"))
-                {
-                    System.out.println("Player " + playerNum + " dies!");
-                    alive=false;
-                }
-                else if((msg.substring(0,3)).equals("mov"))
-                {
-                    System.out.println("Player " + playerNum + " moves " + msg.substring(3,4));
-                }
-                else if((msg.substring(0,3)).equals("bmb"))
-                {
-                    System.out.println("gowno");
+                if(buffIn.read(buffer,0,4)!=-1) {
+
+                    String msg = new String(buffer);
+
+                    switch ((msg.substring(0, 3))) {
+                        case "die":
+                            System.out.println("Player " + playerNum + " dies!");
+                            alive = false;
+                            break;
+                        case "mov":
+                            System.out.println("Player " + playerNum + " moves " + msg.substring(3, 4));
+                            break;
+                        case "bmb":
+                            System.out.println("Player " + playerNum + " places bomb");
+                            break;
+                    }
                 }
 
             }
