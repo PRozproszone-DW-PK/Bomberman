@@ -1,0 +1,4 @@
+#ignore Intellij Idea files
+.idea
+
+Bomberman2.iml
