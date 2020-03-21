@@ -17,9 +17,9 @@ public class Controller {
     @FXML
     private void SendMessage(ActionEvent event) {
 
-        Task<Void> sendTask = new SendTask('e');
-        statusLabel.textProperty().bind(sendTask.messageProperty());
-        executor.submit(sendTask);
+      //  Task<Void> sendTask = new SendTask('e');
+       // statusLabel.textProperty().bind(sendTask.messageProperty());
+       // executor.submit(sendTask);
 
     }
 

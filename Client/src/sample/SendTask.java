@@ -1,16 +1,14 @@
 package sample;
-
 import javafx.concurrent.Task;
-
 import java.io.*;
-import java.net.InetAddress;
 import java.net.Socket;
 
 public class SendTask extends Task<Void> {
     private char letter;
-
-    public SendTask(char letter) {
+    private Socket server;
+    public SendTask(char letter,Socket server) {
         this.letter=letter;
+        this.server=server;
     }
 
     @Override
@@ -19,13 +17,10 @@ public class SendTask extends Task<Void> {
         updateMessage("Initiating...");
         System.out.println("Initiating...");
 
-        try (Socket server = new Socket( "25.103.157.11", 9797)) {
-            server.getOutputStream().write(str.getBytes("US-ASCII"));
-        } catch (IOException e) {
-            updateMessage("Server connection error");
-            System.out.println("Server connection error");
-            return null;
-        }
+
+        server.getOutputStream().write(str.getBytes("US-ASCII"));
+        //server.getOutputStream().flush();
+
         updateMessage("Finished");
         System.out.println("Finished");
         return null;
