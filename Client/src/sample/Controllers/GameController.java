@@ -2,34 +2,23 @@ package sample.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import sample.ServerCommunicator;
 
+import java.net.URL;
 import java.util.Arrays;
+import java.util.ResourceBundle;
 
 
-public class GameController {
+public class GameController implements Initializable {
     final private int size = 10;
     private char[][] board;
-    private int pos_x;
-    private int pos_y;
-    private GameController()
-    {
-        this.board = new char[][]
-                         {{'p', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}};
-        System.out.print(Arrays.deepToString(board));
-    }
+    private int pos_x=0;
+    private int pos_y=0;
+
     private void Game(int y, int x)
     {
         board[pos_y][pos_x]=' ';
@@ -77,5 +66,21 @@ public class GameController {
                 ServerCommunicator.getInstance().moveMsg(e.getCode());
             }
         }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.board = new char[][]
+                {{'p', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
+                        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
+                        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
+                        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
+                        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
+                        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
+                        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
+                        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
+                        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
+                        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}};
+        System.out.print(Arrays.deepToString(board));
     }
 }
