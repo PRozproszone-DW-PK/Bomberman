@@ -22,7 +22,7 @@ public class SendTask extends Task<Void> {
 
 
         server.getOutputStream().write(str.getBytes(StandardCharsets.US_ASCII));
-        //server.getOutputStream().flush();
+
 
         updateMessage("Finished");
         System.out.println("Finished");
