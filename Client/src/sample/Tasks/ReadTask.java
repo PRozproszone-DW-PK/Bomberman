@@ -1,10 +1,12 @@
 package sample.Tasks;
 
+import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import sample.Controllers.MenuController;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -13,10 +15,12 @@ public class ReadTask extends Task<Void> {
 
     private byte[] input;
     private Socket server;
+    private Stage stage;
 
-    public ReadTask(Socket server) {
+    public ReadTask(Socket server,Stage stage) {
         input = new byte[8];
         this.server = server;
+        this.stage = stage;
     }
 
     @Override
@@ -33,20 +37,24 @@ public class ReadTask extends Task<Void> {
 
         if(in.substring(0,5).equals("start"))
         {
-            Stage window = new Stage();
-            Parent root = null;
-            try {
-                System.out.println(root);
-                root = FXMLLoader.load(getClass().getResource("./Game.fxml"));
-                System.out.println(root);
-                System.out.println("cojest");
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    stage.close();
 
-            window.setTitle("Bomberman the game");
-            window.setScene(new Scene(root, 300, 350));
-            window.show();
+                    Stage window = new Stage();
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Game.fxml"));
+
+                    try {
+                        Parent root = fxmlLoader.load();
+                        window.setScene(new Scene(root, 400, 400));
+                        window.show();
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         }
 
         return null;
