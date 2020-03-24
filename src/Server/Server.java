@@ -3,6 +3,7 @@ package Server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -25,11 +26,16 @@ public class Server {
             ServerSocket serverSocket = new ServerSocket(9797);
             player1 = serverSocket.accept();
             System.out.println("Player 1 connected");
-            //player2 = serverSocket.accept();
+            player2 = serverSocket.accept();
+            System.out.println("Player 2 connected");
+
+            player1.getOutputStream().write("start".getBytes(StandardCharsets.US_ASCII));
+            player2.getOutputStream().write("start".getBytes(StandardCharsets.US_ASCII));
+
             System.out.println("Game is about to start");
 
             poolExecutor.submit(new PlayerTask(player1,1));
-            //poolExecutor.submit(new PlayerTask(player2,2));
+            poolExecutor.submit(new PlayerTask(player2,2));
 
         } catch (IOException e) {
             e.printStackTrace();
