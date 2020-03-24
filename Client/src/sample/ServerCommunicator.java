@@ -2,6 +2,8 @@ package sample;
 
 import javafx.concurrent.Task;
 import javafx.scene.input.KeyCode;
+import javafx.stage.Stage;
+import sample.Controllers.MenuController;
 import sample.Tasks.ReadTask;
 import sample.Tasks.SendTask;
 
@@ -77,9 +79,9 @@ public class ServerCommunicator {
         }
     }
 
-    public void read()
+    public void read(Stage stage)
     {
-        Task<Void> readTask = new ReadTask(server);
+        Task<Void> readTask = new ReadTask(server,stage);
         executor.submit(readTask);
     }
 }

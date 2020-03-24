@@ -8,6 +8,7 @@ import sample.ServerCommunicator;
 
 
 public class GameController {
+
     @FXML
     private Label statusLabel;
 

@@ -1,5 +1,6 @@
 package sample.Controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,9 +18,8 @@ public class MenuController {
     public void play(MouseEvent e)
     {
         ServerCommunicator.getInstance().openSocket("25.103.157.11");
-        ServerCommunicator.getInstance().read();
+        ServerCommunicator.getInstance().read((Stage)((Button) e.getSource()).getScene().getWindow());
     }
-
 
     @FXML
     public void exit(MouseEvent e)
