@@ -19,9 +19,9 @@ public class Main extends Application {
     private ExecutorService executor = Executors.newSingleThreadExecutor();
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 500, 500));
+        Parent root = FXMLLoader.load(getClass().getResource("Scenes/Menu.fxml"));
+        primaryStage.setTitle("Bomberman the game");
+        primaryStage.setScene(new Scene(root, 300, 350));
         primaryStage.show();
 
 

@@ -1,7 +1,7 @@
 package sample;
 import javafx.concurrent.Task;
-import java.io.*;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 public class SendTask extends Task<Void> {
     private char letter;
@@ -18,7 +18,7 @@ public class SendTask extends Task<Void> {
         System.out.println("Initiating...");
 
 
-        server.getOutputStream().write(str.getBytes("US-ASCII"));
+        server.getOutputStream().write(str.getBytes(StandardCharsets.US_ASCII));
         //server.getOutputStream().flush();
 
         updateMessage("Finished");
