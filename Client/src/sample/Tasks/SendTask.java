@@ -1,14 +1,17 @@
-package sample;
+package sample.Tasks;
 import javafx.concurrent.Task;
+
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
 public class SendTask extends Task<Void> {
+
     private char letter;
     private Socket server;
-    public SendTask(char letter,Socket server) {
-        this.letter=letter;
-        this.server=server;
+
+    public SendTask(char letter, Socket server) {
+        this.letter = letter;
+        this.server = server;
     }
 
     @Override
