@@ -18,7 +18,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/Menu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/Game.fxml"));
         primaryStage.setScene(new Scene(root, 300, 350));
         primaryStage.setTitle("Bomberman the game");
         primaryStage.show();
