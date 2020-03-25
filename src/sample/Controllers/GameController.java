@@ -1,86 +1,71 @@
 package sample.Controllers;
 
-import javafx.event.ActionEvent;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import sample.ServerCommunicator;
+import sample.Game.Board;
 
 import java.net.URL;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 
-
 public class GameController implements Initializable {
-    final private int size = 10;
-    private char[][] board;
-    private int pos_x=0;
-    private int pos_y=0;
 
-    private void Game(int y, int x)
-    {
-        board[pos_y][pos_x]=' ';
-        board[pos_y+y][pos_x+x]='p';
-        for(int i=0; i< size;i++)
-        {
-            for(int j=0; j< size;j++)
-            {
-                System.out.print(board[i][j]+" ");
-            }
-        }
-    }
     @FXML
-    private void move(KeyEvent e)
-    {
-        if(e.getCode()== KeyCode.W)
-        {
-            if(pos_y!=0 && board[pos_y-1][pos_x]!='w')
-            {
-                this.Game(-1,0);
-                ServerCommunicator.getInstance().moveMsg(e.getCode());
-            }
-        }
-        else if(e.getCode()==KeyCode.A)
-        {
-            if(pos_x!=0 && board[pos_y][pos_x-1]!='w')
-            {
-                this.Game(0,-1);
-                ServerCommunicator.getInstance().moveMsg(e.getCode());
-            }
-        }
-        else if(e.getCode()==KeyCode.S)
-        {
-            if(pos_y!=size-1 && board[pos_y+1][pos_x]!='w')
-            {
-                this.Game(1,0);
-                ServerCommunicator.getInstance().moveMsg(e.getCode());
-            }
-        }
-        else if(e.getCode()==KeyCode.D)
-        {
-            if(pos_x!=size-1 && board[pos_y][pos_x+1]!='w')
-            {
-                this.Game(0,1);
-                ServerCommunicator.getInstance().moveMsg(e.getCode());
-            }
-        }
-    }
+    public Canvas canvas;
+
+    private Board board;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.board = new char[][]
-                {{'p', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}};
-        System.out.print(Arrays.deepToString(board));
+
+        board = new Board(canvas);
+        board.drawBoard();
+
+        Platform.runLater(() -> canvas.getScene().setOnKeyPressed(this::move));
+    }
+
+    public void move(KeyEvent e)
+    {
+        Platform.runLater(() -> {
+
+            if(e.getCode()== KeyCode.W)
+            {
+                if(!board.anyVerticalObstacles(board.getPlayer().getX(),
+                        board.getPlayer().getX()+board.getPlayer().getWidth()-1,
+                        board.getPlayer().getY()-board.getPlayer().getMoveSpeed()))
+                    board.getPlayer().moveUp();
+            }
+            else if(e.getCode()== KeyCode.A)
+            {
+                if(!board.anyHorizontalObstacles(board.getPlayer().getY(),
+                        board.getPlayer().getY()+board.getPlayer().getHeight()-1,
+                        board.getPlayer().getX()-board.getPlayer().getMoveSpeed()))
+                    board.getPlayer().moveLeft();
+            }
+            else if(e.getCode()== KeyCode.S)
+            {
+                if(!board.anyVerticalObstacles(board.getPlayer().getX(),
+                        board.getPlayer().getX()+board.getPlayer().getWidth()-1,
+                        board.getPlayer().getY()+board.getPlayer().getHeight()+board.getPlayer().getMoveSpeed()-1))
+                    board.getPlayer().moveDown();
+            }
+            else if(e.getCode()== KeyCode.D)
+            {
+                if(!board.anyHorizontalObstacles(board.getPlayer().getY(),
+                        board.getPlayer().getY()+board.getPlayer().getHeight()-1,
+                        board.getPlayer().getX()+board.getPlayer().getWidth()+board.getPlayer().getMoveSpeed()-1))
+                    board.getPlayer().moveRight();
+            }
+            else if(e.getCode()== KeyCode.SPACE)
+            {
+                board.getPlayer().placeBomb();
+            }
+
+            board.drawBoard();
+
+        });
     }
 }

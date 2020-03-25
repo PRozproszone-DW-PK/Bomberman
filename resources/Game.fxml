@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.canvas.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#move" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.GameController">
-   <center>
-      <Button mnemonicParsing="false"  text="Button" BorderPane.alignment="CENTER" />
-   </center>
-   <left>
-      <Label fx:id="statusLabel" text="Label" BorderPane.alignment="CENTER" />
-   </left>
-</BorderPane>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.GameController">
+   <children>
+      <Canvas fx:id="canvas" height="350.0" width="600.0" />
+   </children>
+</VBox>
