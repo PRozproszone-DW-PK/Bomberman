@@ -29,13 +29,13 @@ public class Server {
             player2 = serverSocket.accept();
             System.out.println("Player 2 connected");
 
-            player1.getOutputStream().write("start".getBytes(StandardCharsets.US_ASCII));
-            player2.getOutputStream().write("start".getBytes(StandardCharsets.US_ASCII));
+            player1.getOutputStream().write("start120120160160".getBytes(StandardCharsets.US_ASCII));
+            player2.getOutputStream().write("start160160120120".getBytes(StandardCharsets.US_ASCII));
 
             System.out.println("Game is about to start");
 
-            poolExecutor.submit(new PlayerTask(player1,1));
-            poolExecutor.submit(new PlayerTask(player2,2));
+            poolExecutor.submit(new PlayerTask(player1,player2,1));
+            poolExecutor.submit(new PlayerTask(player2,player1,2));
 
         } catch (IOException e) {
             e.printStackTrace();

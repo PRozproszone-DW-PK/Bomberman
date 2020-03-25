@@ -9,15 +9,17 @@ public class PlayerTask implements Runnable {
 
     private int playerNum;
     private Socket socket;
+    private Socket enemySocket;
     private boolean alive;
     byte[] buffer;
 
-    public PlayerTask(Socket socket, int num)
+    public PlayerTask(Socket socket,Socket enemySocket, int num)
     {
         playerNum = num;
         buffer = new byte[4];
         alive = true;
         this.socket = socket;
+        this.enemySocket = enemySocket;
     }
 
     @Override
@@ -38,6 +40,7 @@ public class PlayerTask implements Runnable {
                             alive = false;
                             break;
                         case "mov":
+                            enemySocket.getOutputStream().write((msg.substring(0, 4)).getBytes());
                             System.out.println("Player " + playerNum + " moves " + msg.substring(3, 4));
                             break;
                         case "bmb":
