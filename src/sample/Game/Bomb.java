@@ -4,7 +4,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 
 public class Bomb extends BoardElement {
@@ -69,19 +68,19 @@ public class Bomb extends BoardElement {
                     {
                         if(enemy.contains(x+i,y-length))
                             enemy.die();
-                    }
-                    Iterator<Fragile> it = fragiles.iterator();
 
-                    while(it.hasNext())
-                    {
-                        Fragile next = it.next();
-                        if(next.contains(x+i,y-length))
+                        Iterator<Fragile> it = fragiles.iterator();
+
+                        while(it.hasNext())
                         {
-                            fragiles.remove(next);
-                            break;
+                            Fragile next = it.next();
+                            if(next.contains(x+i,y-length))
+                            {
+                                fragiles.remove(next);
+                                break;
+                            }
                         }
                     }
-
                     canvas.getGraphicsContext2D().fillRect(x+i,y-length,1,length);
                 }
                 if(i==width-1)
@@ -89,22 +88,21 @@ public class Bomb extends BoardElement {
                     int length=1;
                     for(;length<power;length++)
                     {
-                        if(enemy.contains(x+width+length,y+j))
+                        if (enemy.contains(x + width + length, y + j))
                             enemy.die();
-                    }
 
-                    Iterator<Fragile> it = fragiles.iterator();
 
-                    while(it.hasNext())
-                    {
-                        Fragile next = it.next();
-                        if(next.contains(x+width+length,y+j))
+                        Iterator<Fragile> it = fragiles.iterator();
+
+                        while (it.hasNext())
                         {
-                            fragiles.remove(next);
-                            break;
+                            Fragile next = it.next();
+                            if (next.contains(x + width + length, y + j)) {
+                                fragiles.remove(next);
+                                break;
+                            }
                         }
                     }
-
                     canvas.getGraphicsContext2D().fillRect(x+width,y+j,length,1);
                 }
                 if(j==height-1)
@@ -112,31 +110,23 @@ public class Bomb extends BoardElement {
                     int length=1;
                     for(;length<power;length++)
                     {
-                        if(enemy.contains(x+i,y+height+length))
+                        if (enemy.contains(x + i, y + height + length))
                             enemy.die();
-                    }
 
-                    Iterator<Fragile> it = fragiles.iterator();
+                        Iterator<Fragile> it = fragiles.iterator();
 
-                    while(it.hasNext())
-                    {
-                        Fragile next = it.next();
-                        if(next.contains(x+i,y+height+length))
-                        {
-                            fragiles.remove(next);
-                            break;
+                        while (it.hasNext()) {
+                            Fragile next = it.next();
+                            if (next.contains(x + i, y + height + length)) {
+                                fragiles.remove(next);
+                                break;
+                            }
                         }
                     }
                     canvas.getGraphicsContext2D().fillRect(x+i,y+height,1,length);
                 }
             }
         }
-
-
-        /*canvas.getGraphicsContext2D().fillRect(x-power,y,power,height);
-        canvas.getGraphicsContext2D().fillRect(x+width,y,power,height);
-        canvas.getGraphicsContext2D().fillRect(x,y-power,width,power);
-        canvas.getGraphicsContext2D().fillRect(x,y+height,width,power);*/
 
         placed=false;
     }

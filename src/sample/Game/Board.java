@@ -4,7 +4,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Board {
     //zmienic tak zeby sciany przechowywac osobno od playgrounda bo po co je rysowac za kazdym razem jak sie nie zmieniaja
@@ -121,5 +120,10 @@ public class Board {
     public Player getPlayer()
     {
         return player;
+    }
+
+    public Player getEnemy()
+    {
+        return enemy;
     }
 }

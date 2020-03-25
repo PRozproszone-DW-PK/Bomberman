@@ -21,7 +21,8 @@ public class MenuController implements Initializable {
     @FXML
     public void play(MouseEvent e)
     {
-        ServerCommunicator.getInstance().openSocket("localhost");//("25.103.157.11");
+        ServerCommunicator.getInstance().openSocket("25.103.157.11");
+        //ServerCommunicator.getInstance().openSocket("localhost");//("25.103.157.11");
         ServerCommunicator.getInstance().read((Stage)((Button) e.getSource()).getScene().getWindow());
     }
 
@@ -35,7 +36,7 @@ public class MenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        Media media = new Media(this.getClass().getResource("/title.mp3").toString());
+        /*Media media = new Media(this.getClass().getResource("/title.mp3").toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setVolume(0.1);
         mediaPlayer.setOnEndOfMedia(new Runnable() {
@@ -44,6 +45,6 @@ public class MenuController implements Initializable {
                 mediaPlayer.seek(Duration.ZERO);
             }
         });
-        mediaPlayer.play();
+        mediaPlayer.play();*/
     }
 }

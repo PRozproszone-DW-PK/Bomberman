@@ -3,7 +3,8 @@ package sample;
 import javafx.concurrent.Task;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import sample.Controllers.MenuController;
+import sample.Game.Board;
+import sample.Tasks.GameTask;
 import sample.Tasks.ReadTask;
 import sample.Tasks.SendTask;
 
@@ -16,6 +17,7 @@ public class ServerCommunicator {
 
     public static final ServerCommunicator SERVER_COMMUNICATOR = new ServerCommunicator();
     private ExecutorService executor = Executors.newSingleThreadExecutor();
+    private ExecutorService gameExecutor = Executors.newSingleThreadExecutor();
     private Socket server;
 
     public ServerCommunicator()
@@ -57,25 +59,21 @@ public class ServerCommunicator {
         {
             Task<Void> sendTask = new SendTask('W', server);
             executor.submit(sendTask);
-            System.out.println("W key was pressed");
         }
         else if(key==KeyCode.A)
         {
             Task<Void> sendTask = new SendTask('A', server);
             executor.submit(sendTask);
-            System.out.println("W key was pressed");
         }
         else if(key==KeyCode.S)
         {
             Task<Void> sendTask = new SendTask('S', server);
             executor.submit(sendTask);
-            System.out.println("S key was pressed");
         }
         else if(key==KeyCode.D)
         {
             Task<Void> sendTask = new SendTask('D', server);
             executor.submit(sendTask);
-            System.out.println("D key was pressed");
         }
     }
 
@@ -83,5 +81,11 @@ public class ServerCommunicator {
     {
         Task<Void> readTask = new ReadTask(server,stage);
         executor.submit(readTask);
+    }
+
+    public void readInGame(Board board)
+    {
+        Task<Void> gameTask = new GameTask(board);
+        gameExecutor.submit(gameTask);
     }
 }

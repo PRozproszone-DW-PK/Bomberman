@@ -17,15 +17,9 @@ public class SendTask extends Task<Void> {
     @Override
     protected Void call() throws Exception {
         String str = "mov"+letter;
-        updateMessage("Initiating...");
-        System.out.println("Initiating...");
-
 
         server.getOutputStream().write(str.getBytes(StandardCharsets.US_ASCII));
 
-
-        updateMessage("Finished");
-        System.out.println("Finished");
         return null;
     }
 }
