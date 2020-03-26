@@ -10,14 +10,12 @@ public class PlayerTask implements Runnable {
     private int playerNum;
     private Socket socket;
     private Socket enemySocket;
-    private boolean alive;
     byte[] buffer;
 
     public PlayerTask(Socket socket,Socket enemySocket, int num)
     {
         playerNum = num;
         buffer = new byte[4];
-        alive = true;
         this.socket = socket;
         this.enemySocket = enemySocket;
     }
@@ -28,7 +26,7 @@ public class PlayerTask implements Runnable {
         try(InputStream in = socket.getInputStream();
             BufferedInputStream buffIn = new BufferedInputStream(in)){
 
-            while(alive && socket.isConnected())
+            while(socket.isConnected())
             {
                 if(buffIn.read(buffer,0,4)!=-1) {
 
@@ -36,15 +34,12 @@ public class PlayerTask implements Runnable {
 
                     switch ((msg.substring(0, 3))) {
                         case "die":
-                            System.out.println("Player " + playerNum + " dies!");
-                            alive = false;
                             break;
                         case "mov":
                             enemySocket.getOutputStream().write((msg.substring(0, 4)).getBytes());
-                            System.out.println("Player " + playerNum + " moves " + msg.substring(3, 4));
                             break;
                         case "bmb":
-                            System.out.println("Player " + playerNum + " places bomb");
+                            enemySocket.getOutputStream().write("bmb".getBytes());
                             break;
                     }
                 }
