@@ -53,9 +53,6 @@ public class Board {
             }
         }
 
-        if(player.getBomb().isPlaced())
-            player.getBomb().explode(canvas, playground, enemy,fragiles);
-
         if(enemy.isAlive())
         {
             enemy.draw(canvas);
@@ -66,6 +63,9 @@ public class Board {
 
         if(player.getBomb().isPlaced())
             player.getBomb().draw(canvas);
+
+        if(enemy.getBomb().isPlaced())
+            enemy.getBomb().draw(canvas);
 
         for(Fragile fragile : fragiles)
         {
@@ -125,5 +125,17 @@ public class Board {
     public Player getEnemy()
     {
         return enemy;
+    }
+
+    public BoardElement[][] getPlayground() {
+        return playground;
+    }
+
+    public ArrayList<Fragile> getFragiles() {
+        return fragiles;
+    }
+
+    public Canvas getCanvas() {
+        return canvas;
     }
 }
