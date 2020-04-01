@@ -2,6 +2,8 @@ package sample.Game;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import sample.Controllers.GameController;
 import sample.ServerCommunicator;
 
 public class Player extends BoardElement {
@@ -54,9 +56,10 @@ public class Player extends BoardElement {
         return alive;
     }
 
-    public void die()
+    public void die(Stage window)
     {
         this.alive = false;
+        GameController.endGame(window);
     }
 
     public void placeBomb()
