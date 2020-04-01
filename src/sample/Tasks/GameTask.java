@@ -28,7 +28,7 @@ public class GameTask extends Task<Void> {
                 e.printStackTrace();
             }
             String in = new String(input);
-            System.out.println(in);
+
             if(in.substring(0,3).equals("end"))
                 break;
             else if(in.substring(0,4).equals("movW"))
@@ -68,6 +68,15 @@ public class GameTask extends Task<Void> {
                     public void run() {
                         board.getEnemy().moveRight();
                         board.drawBoard();
+                    }
+                });
+            }
+            else if(in.substring(0,3).equals("bmb"))
+            {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        ServerCommunicator.getInstance().placeBomb(board.getEnemy());
                     }
                 });
             }

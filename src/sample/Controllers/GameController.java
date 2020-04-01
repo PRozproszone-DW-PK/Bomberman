@@ -23,6 +23,7 @@ public class GameController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         board = new Board(canvas);
+        ServerCommunicator.getInstance().setBoard(board);
         board.drawBoard();
 
         Platform.runLater(() -> canvas.getScene().setOnKeyPressed(this::move));
@@ -88,6 +89,7 @@ public class GameController implements Initializable {
             else if(e.getCode()== KeyCode.SPACE)
             {
                 board.getPlayer().placeBomb();
+               // ServerCommunicator.getInstance().placeBomb(board.getPlayer());
             }
 
             board.drawBoard();

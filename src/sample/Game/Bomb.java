@@ -2,6 +2,7 @@ package sample.Game;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
+import sample.ServerCommunicator;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -21,11 +22,17 @@ public class Bomb extends BoardElement {
         return placed;
     }
 
+    public void changeColor(Color color)
+    {
+        this.color = color;
+    }
+
     public void place(int x, int y)
     {
         this.x = x;
         this.y = y;
         this.placed = true;
+       // ServerCommunicator.getInstance().placeBomb(this);
     }
 
     public void explode(Canvas canvas, BoardElement[][] playground, Player enemy, ArrayList<Fragile> fragiles)
@@ -127,7 +134,9 @@ public class Bomb extends BoardElement {
                 }
             }
         }
+    }
 
-        placed=false;
+    public void setPlaced(boolean placed) {
+        this.placed = placed;
     }
 }

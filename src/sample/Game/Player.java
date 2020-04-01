@@ -2,6 +2,7 @@ package sample.Game;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
+import sample.ServerCommunicator;
 
 public class Player extends BoardElement {
 
@@ -15,7 +16,7 @@ public class Player extends BoardElement {
         this.alive = true;
         this.color = color;
 
-        this.bomb = new Bomb(0,0,10,10);
+        this.bomb = new Bomb(x,y,10,10);
     }
 
     public void moveLeft()
@@ -63,7 +64,8 @@ public class Player extends BoardElement {
         if(!bomb.isPlaced())
         {
             bomb.place(x+5,y+5);
-
+            ServerCommunicator.getInstance().placeBomb(this);
+            ServerCommunicator.getInstance().bombMsg();
         }
     }
 

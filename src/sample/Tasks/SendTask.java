@@ -6,20 +6,17 @@ import java.nio.charset.StandardCharsets;
 
 public class SendTask extends Task<Void> {
 
-    private char letter;
+    private String word;
     private Socket server;
 
-    public SendTask(char letter, Socket server) {
-        this.letter = letter;
+    public SendTask(String word, Socket server) {
+        this.word = word;
         this.server = server;
     }
 
     @Override
     protected Void call() throws Exception {
-        String str = "mov"+letter;
-
-        server.getOutputStream().write(str.getBytes(StandardCharsets.US_ASCII));
-
+        server.getOutputStream().write(word.getBytes(StandardCharsets.US_ASCII));
         return null;
     }
 }
