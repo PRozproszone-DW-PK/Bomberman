@@ -19,11 +19,11 @@ public class GameTask extends Task<Void> {
     @Override
     protected Void call() throws Exception {
 
-        byte[] input = new byte[8];
+        byte[] input = new byte[9];
 
         while(true) {
             try {
-                ServerCommunicator.getInstance().getSocket().getInputStream().read(input, 0, 5);
+                ServerCommunicator.getInstance().getSocket().getInputStream().read(input, 0, 9);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -38,6 +38,7 @@ public class GameTask extends Task<Void> {
 
                 board.getEnemy().setX(x);
                 board.getEnemy().setY(y);
+                board.drawBoard();
             }
             /*else if(in.substring(0,4).equals("movW"))
             {
