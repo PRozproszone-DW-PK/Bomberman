@@ -7,8 +7,8 @@
 
 <VBox alignment="TOP_CENTER" fx:controller="sample.Controllers.EndGameController" styleClass="vbox" maxHeight="-Infinity" stylesheets="@sample/CSS/menu.css" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="402.0" prefWidth="366.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label text="Game Over" />
-      <Button alignment="CENTER" mnemonicParsing="false" text="Play Again" />
+      <Label fx:id="label" text="Game Over" />
+      <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#playAgain" text="Play Again" />
       <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#exit" text="Exit" />
    </children>
 </VBox>

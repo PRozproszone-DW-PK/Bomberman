@@ -53,8 +53,8 @@ public class Bomb extends BoardElement {
                     int length=1;
                     for(;length<power;length++)
                     {
-                        if(enemy.contains(x-length,y+j))
-                                enemy.die((Stage)(canvas).getScene().getWindow());
+                        if(enemy.contains(x-length,y+j)&& enemy.isAlive())
+                                enemy.die();
 
                         Iterator<Fragile> it = fragiles.iterator();
 
@@ -76,8 +76,8 @@ public class Bomb extends BoardElement {
                     int length=1;
                     for(;length<power;length++)
                     {
-                        if(enemy.contains(x+i,y-length))
-                            enemy.die((Stage)(canvas).getScene().getWindow());
+                        if(enemy.contains(x+i,y-length)&& enemy.isAlive())
+                            enemy.die();
 
                         Iterator<Fragile> it = fragiles.iterator();
 
@@ -99,8 +99,8 @@ public class Bomb extends BoardElement {
                     int length=1;
                     for(;length<power;length++)
                     {
-                        if (enemy.contains(x + width + length, y + j))
-                            enemy.die((Stage)(canvas).getScene().getWindow());
+                        if (enemy.contains(x + width + length, y + j) && enemy.isAlive())
+                            enemy.die();
 
 
                         Iterator<Fragile> it = fragiles.iterator();
@@ -122,8 +122,8 @@ public class Bomb extends BoardElement {
                     int length=1;
                     for(;length<power;length++)
                     {
-                        if (enemy.contains(x + i, y + height + length))
-                            enemy.die((Stage)(canvas).getScene().getWindow());
+                        if (enemy.contains(x + i, y + height + length) && enemy.isAlive())
+                            enemy.die();
 
                         Iterator<Fragile> it = fragiles.iterator();
 

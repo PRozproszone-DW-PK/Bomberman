@@ -2,6 +2,8 @@ package sample.Tasks;
 
 import javafx.application.Platform;
 import javafx.concurrent.Task;
+import javafx.stage.Stage;
+import sample.Controllers.GameController;
 import sample.Game.Board;
 import sample.ServerCommunicator;
 
@@ -29,8 +31,14 @@ public class GameTask extends Task<Void> {
             }
             String in = new String(input);
 
-            if(in.substring(0,3).equals("end"))
+            if(in.substring(0,3).equals("win")) {
+                GameController.endGame((Stage) (board.getCanvas()).getScene().getWindow(),"win");
                 break;
+            }
+            else if(in.substring(0,3).equals("los")) {
+                GameController.endGame((Stage) (board.getCanvas()).getScene().getWindow(),"los");
+                break;
+            }
             else if(in.substring(0,3).equals("mov"))
             {
                 int x = Integer.parseInt((in.substring(3,6)));

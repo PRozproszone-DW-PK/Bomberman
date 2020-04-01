@@ -106,4 +106,9 @@ public class ServerCommunicator {
         player.getBomb().place(player.getX()+5,player.getY()+5);
         poolExecutor.submit(new BombTask(player.getBomb()));
     }
+    public void endMsg()
+    {
+        Task<Void> sendTask = new SendTask("end", server);
+        executor.submit(sendTask);
+    }
 }

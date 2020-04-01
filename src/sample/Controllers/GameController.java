@@ -101,7 +101,7 @@ public class GameController implements Initializable {
 
         });
     }
-    public static void endGame(Stage window)
+    public static void endGame(Stage window, String score)
     {
         Platform.runLater(new Runnable() {
             @Override
@@ -113,9 +113,12 @@ public class GameController implements Initializable {
 
                 try {
                     Parent root = fxmlLoader.load();
+
                     window.setScene(new Scene(root, 400, 400));
                     EndGameController gc = fxmlLoader.getController();
                     window.show();
+                    if(score.equals("win"))gc.setScore("You win !!!");
+                    else gc.setScore("You lost !!!");
 
                 } catch (IOException e) {
                     e.printStackTrace();

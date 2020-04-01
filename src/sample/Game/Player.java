@@ -56,10 +56,10 @@ public class Player extends BoardElement {
         return alive;
     }
 
-    public void die(Stage window)
+    public void die()
     {
         this.alive = false;
-        GameController.endGame(window);
+        ServerCommunicator.getInstance().endMsg();
     }
 
     public void placeBomb()

@@ -21,8 +21,8 @@ public class MenuController implements Initializable {
     @FXML
     public void play(MouseEvent e)
     {
-        ServerCommunicator.getInstance().openSocket("25.103.157.11");
-        //ServerCommunicator.getInstance().openSocket("localhost");//("25.103.157.11");
+        //ServerCommunicator.getInstance().openSocket("25.103.157.11");
+        ServerCommunicator.getInstance().openSocket("localhost");//("25.103.157.11");
         ServerCommunicator.getInstance().read((Stage)((Button) e.getSource()).getScene().getWindow());
     }
 
