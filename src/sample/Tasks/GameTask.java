@@ -31,7 +31,15 @@ public class GameTask extends Task<Void> {
 
             if(in.substring(0,3).equals("end"))
                 break;
-            else if(in.substring(0,4).equals("movW"))
+            else if(in.substring(0,3).equals("mov"))
+            {
+                int x = Integer.parseInt((in.substring(3,6)));
+                int y = Integer.parseInt((in.substring(6,9)));
+
+                board.getEnemy().setX(x);
+                board.getEnemy().setY(y);
+            }
+            /*else if(in.substring(0,4).equals("movW"))
             {
                 Platform.runLater(new Runnable() {
                     @Override
@@ -70,7 +78,7 @@ public class GameTask extends Task<Void> {
                         board.drawBoard();
                     }
                 });
-            }
+            }*/
             else if(in.substring(0,3).equals("bmb"))
             {
                 Platform.runLater(new Runnable() {

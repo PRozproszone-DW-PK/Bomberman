@@ -71,26 +71,30 @@ public class ServerCommunicator {
 
     public void moveMsg(KeyCode key)
     {
-        if(key==KeyCode.W)
+        Player player = board.getPlayer();
+
+        Task<Void> sendTask = new SendTask("mov"+player.getX()+""+player.getY(), server);
+        executor.submit(sendTask);
+        /*if(key==KeyCode.W)
         {
-            Task<Void> sendTask = new SendTask("movW", server);
+            Task<Void> sendTask = new SendTask("mov"+player., server);
             executor.submit(sendTask);
         }
         else if(key==KeyCode.A)
         {
-            Task<Void> sendTask = new SendTask("movA", server);
+            Task<Void> sendTask = new SendTask("mov"+, server);
             executor.submit(sendTask);
         }
         else if(key==KeyCode.S)
         {
-            Task<Void> sendTask = new SendTask("movS", server);
+            Task<Void> sendTask = new SendTask("mov", server);
             executor.submit(sendTask);
         }
         else if(key==KeyCode.D)
         {
-            Task<Void> sendTask = new SendTask("movD", server);
+            Task<Void> sendTask = new SendTask("mov", server);
             executor.submit(sendTask);
-        }
+        }*/
     }
 
     public void bombMsg()
