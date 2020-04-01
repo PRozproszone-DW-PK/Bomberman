@@ -2,13 +2,18 @@ package sample.Controllers;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 import sample.Game.Board;
 import sample.ServerCommunicator;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -96,4 +101,27 @@ public class GameController implements Initializable {
 
         });
     }
+    public static void endGame(Stage window)
+    {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                window.close();
+
+                Stage window = new Stage();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/EndGame.fxml"));
+
+                try {
+                    Parent root = fxmlLoader.load();
+                    window.setScene(new Scene(root, 400, 400));
+                    EndGameController gc = fxmlLoader.getController();
+                    window.show();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
 }

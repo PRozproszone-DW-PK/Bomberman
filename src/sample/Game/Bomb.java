@@ -3,6 +3,7 @@ package sample.Game;
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import sample.ServerCommunicator;
 
 import java.util.ArrayList;
@@ -53,7 +54,7 @@ public class Bomb extends BoardElement {
                     for(;length<power;length++)
                     {
                         if(enemy.contains(x-length,y+j))
-                                enemy.die();
+                                enemy.die((Stage)(canvas).getScene().getWindow());
 
                         Iterator<Fragile> it = fragiles.iterator();
 
@@ -76,7 +77,7 @@ public class Bomb extends BoardElement {
                     for(;length<power;length++)
                     {
                         if(enemy.contains(x+i,y-length))
-                            enemy.die();
+                            enemy.die((Stage)(canvas).getScene().getWindow());
 
                         Iterator<Fragile> it = fragiles.iterator();
 
@@ -99,7 +100,7 @@ public class Bomb extends BoardElement {
                     for(;length<power;length++)
                     {
                         if (enemy.contains(x + width + length, y + j))
-                            enemy.die();
+                            enemy.die((Stage)(canvas).getScene().getWindow());
 
 
                         Iterator<Fragile> it = fragiles.iterator();
@@ -122,7 +123,7 @@ public class Bomb extends BoardElement {
                     for(;length<power;length++)
                     {
                         if (enemy.contains(x + i, y + height + length))
-                            enemy.die();
+                            enemy.die((Stage)(canvas).getScene().getWindow());
 
                         Iterator<Fragile> it = fragiles.iterator();
 
