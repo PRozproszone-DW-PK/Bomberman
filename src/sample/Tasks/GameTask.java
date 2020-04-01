@@ -36,9 +36,15 @@ public class GameTask extends Task<Void> {
                 int x = Integer.parseInt((in.substring(3,6)));
                 int y = Integer.parseInt((in.substring(6,9)));
 
-                board.getEnemy().setX(x);
-                board.getEnemy().setY(y);
-                board.drawBoard();
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        board.getEnemy().setX(x);
+                        board.getEnemy().setY(y);
+                        board.drawBoard();
+                    }
+                });
+
             }
             /*else if(in.substring(0,4).equals("movW"))
             {
