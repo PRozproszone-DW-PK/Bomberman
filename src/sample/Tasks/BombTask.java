@@ -36,7 +36,6 @@ public class BombTask extends Task<Void> {
         for (int i = 0; i < 700; i++) {
             Thread.sleep(1);
             Platform.runLater(() -> bomb.explode(sc.getBoard().getCanvas(),sc.getBoard().getPlayground(),sc.getBoard().getEnemy(),sc.getBoard().getFragiles()));
-
         }
         bomb.setPlaced(false);
         Platform.runLater(() -> sc.getBoard().drawBoard());

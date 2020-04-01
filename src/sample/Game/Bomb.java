@@ -1,5 +1,6 @@
 package sample.Game;
 
+import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 import sample.ServerCommunicator;
@@ -62,6 +63,7 @@ public class Bomb extends BoardElement {
                             if(next.contains(x-length,y+j))
                             {
                                 fragiles.remove(next);
+                                Platform.runLater(() -> ServerCommunicator.getInstance().getBoard().drawBoard());
                                 break;
                             }
                         }
@@ -84,6 +86,7 @@ public class Bomb extends BoardElement {
                             if(next.contains(x+i,y-length))
                             {
                                 fragiles.remove(next);
+                                Platform.runLater(() -> ServerCommunicator.getInstance().getBoard().drawBoard());
                                 break;
                             }
                         }
@@ -106,6 +109,7 @@ public class Bomb extends BoardElement {
                             Fragile next = it.next();
                             if (next.contains(x + width + length, y + j)) {
                                 fragiles.remove(next);
+                                Platform.runLater(() -> ServerCommunicator.getInstance().getBoard().drawBoard());
                                 break;
                             }
                         }
@@ -126,6 +130,7 @@ public class Bomb extends BoardElement {
                             Fragile next = it.next();
                             if (next.contains(x + i, y + height + length)) {
                                 fragiles.remove(next);
+                                Platform.runLater(() -> ServerCommunicator.getInstance().getBoard().drawBoard());
                                 break;
                             }
                         }

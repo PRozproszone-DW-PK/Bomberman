@@ -73,28 +73,14 @@ public class ServerCommunicator {
     {
         Player player = board.getPlayer();
 
-        Task<Void> sendTask = new SendTask("mov"+player.getX()+""+player.getY(), server);
+        String plX = String.valueOf(player.getX());
+        String plY = String.valueOf(player.getY());
+
+        plX = "0".repeat(3-plX.length()) + plX;
+        plY = "0".repeat(3-plY.length()) + plY;
+
+        Task<Void> sendTask = new SendTask("mov" + plX + plY, server);
         executor.submit(sendTask);
-        /*if(key==KeyCode.W)
-        {
-            Task<Void> sendTask = new SendTask("mov"+player., server);
-            executor.submit(sendTask);
-        }
-        else if(key==KeyCode.A)
-        {
-            Task<Void> sendTask = new SendTask("mov"+, server);
-            executor.submit(sendTask);
-        }
-        else if(key==KeyCode.S)
-        {
-            Task<Void> sendTask = new SendTask("mov", server);
-            executor.submit(sendTask);
-        }
-        else if(key==KeyCode.D)
-        {
-            Task<Void> sendTask = new SendTask("mov", server);
-            executor.submit(sendTask);
-        }*/
     }
 
     public void bombMsg()

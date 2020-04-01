@@ -44,48 +44,7 @@ public class GameTask extends Task<Void> {
                         board.drawBoard();
                     }
                 });
-
             }
-            /*else if(in.substring(0,4).equals("movW"))
-            {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        board.getEnemy().moveUp();
-                        board.drawBoard();
-                    }
-                });
-            }
-            else if(in.substring(0,4).equals("movS"))
-            {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        board.getEnemy().moveDown();
-                        board.drawBoard();
-                    }
-                });
-            }
-            else if(in.substring(0,4).equals("movA"))
-            {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        board.getEnemy().moveLeft();
-                        board.drawBoard();
-                    }
-                });
-            }
-            else if(in.substring(0,4).equals("movD"))
-            {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        board.getEnemy().moveRight();
-                        board.drawBoard();
-                    }
-                });
-            }*/
             else if(in.substring(0,3).equals("bmb"))
             {
                 Platform.runLater(new Runnable() {

@@ -4,6 +4,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Board {
     //zmienic tak zeby sciany przechowywac osobno od playgrounda bo po co je rysowac za kazdym razem jak sie nie zmieniaja
@@ -87,6 +88,17 @@ public class Board {
                             return true;
                         if(enemy.isAlive() && enemy.contains(x1+k,y))
                             return true;
+
+                        Iterator<Fragile> it = fragiles.iterator();
+
+                        while(it.hasNext())
+                        {
+                            Fragile next = it.next();
+                            if(next.contains(x1+k,y))
+                            {
+                                return true;
+                            }
+                        }
                     }
                 }
             }
@@ -109,6 +121,17 @@ public class Board {
                             return true;
                         if(enemy.isAlive() && enemy.contains(x,y1+k))
                             return true;
+
+                        Iterator<Fragile> it = fragiles.iterator();
+
+                        while(it.hasNext())
+                        {
+                            Fragile next = it.next();
+                            if(next.contains(x,y1+k))
+                            {
+                                return true;
+                            }
+                        }
                     }
                 }
             }
