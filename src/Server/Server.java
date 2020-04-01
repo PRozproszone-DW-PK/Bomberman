@@ -34,13 +34,14 @@ public class Server {
 
             System.out.println("Game is about to start");
 
-            poolExecutor.submit(new PlayerTask(player1,player2,1));
-            poolExecutor.submit(new PlayerTask(player2,player1,2));
+            poolExecutor.submit(new PlayerTask(player1,player2,1, serverSocket));
+            poolExecutor.submit(new PlayerTask(player2,player1,2, serverSocket));
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     public void gameOver()
     {
