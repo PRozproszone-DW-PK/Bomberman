@@ -25,25 +25,32 @@ public class PlayerTask implements Runnable {
 
     @Override
     public void run() {
-
         try(InputStream in = socket.getInputStream();
             BufferedInputStream buffIn = new BufferedInputStream(in)){
 
-            while(socket.isConnected())
+            while(socket.isConnected() && !server.isClosed())
             {
                 if(buffIn.read(buffer,0,9)!=-1) {
 
                     String msg = new String(buffer);
 
                     switch ((msg.substring(0, 3))) {
+                        case "ext":
+                            enemySocket.getOutputStream().write("ext".getBytes());
+                            socket.close();
+                            enemySocket.close();
+                            server.close();
+                            Server server2 = new Server();
+                            server2.start();
+                            break;
                         case "end":
                             enemySocket.getOutputStream().write("los".getBytes());
                             socket.getOutputStream().write("win".getBytes());
                             socket.close();
                             enemySocket.close();
                             server.close();
-                            Server server = new Server();
-                            server.start();
+                            Server server3 = new Server();
+                            server3.start();
                             break;
                         case "mov":
                             enemySocket.getOutputStream().write((msg.substring(0, 9)).getBytes());
