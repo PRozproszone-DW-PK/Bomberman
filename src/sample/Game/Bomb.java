@@ -9,6 +9,8 @@ import sample.ServerCommunicator;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import static java.lang.Math.abs;
+
 public class Bomb extends BoardElement {
 
     private boolean placed;
@@ -39,105 +41,55 @@ public class Bomb extends BoardElement {
 
     public void explode(Canvas canvas, BoardElement[][] playground, Player enemy, ArrayList<Fragile> fragiles)
     {
-        int power = 30;
+        int power = 2;
 
         canvas.getGraphicsContext2D().setFill(Color.ORANGE);
         canvas.getGraphicsContext2D().fillRect(x,y,width,height);
 
-        for(int i=0;i<width;i++)
+        final int tileX = this.x/25;
+        final int tileY = this.y/25;
+
+        //if(playground[tileX][tileY])
+
+
+
+        for(int i = 1;i<=power;i++)
         {
-            for(int j=0;j<height;j++)
+            if(tileX+i<15 && !(playground[tileX+i][tileY] instanceof Wall))
             {
-                if(i==0)
-                {
-                    int length=1;
-                    for(;length<power;length++)
-                    {
-                        if(enemy.contains(x-length,y+j)&& enemy.isAlive())
-                                enemy.die();
+                if(abs(tileX*25+i*25 - enemy.getX()) <=24 && abs(tileY*25 - enemy.getY()) <=24)
+                    enemy.die();
+                canvas.getGraphicsContext2D().fillRect(tileX*25+i*25,tileY*25, 25,25);
+            }
+        }
 
-                        Iterator<Fragile> it = fragiles.iterator();
+        for(int i = 1;i<=power;i++)
+        {
+            if(tileX-i>=0 && !(playground[tileX-i][tileY] instanceof Wall))
+            {
+                if(abs(tileX*25-i*25 - enemy.getX()) <=24 && abs(tileY*25 - enemy.getY()) <=24)
+                    enemy.die();
+                canvas.getGraphicsContext2D().fillRect(tileX*25-i*25,tileY*25, 25,25);
+            }
+        }
 
-                        while(it.hasNext())
-                        {
-                            Fragile next = it.next();
-                            if(next.contains(x-length,y+j))
-                            {
-                                fragiles.remove(next);
-                                Platform.runLater(() -> ServerCommunicator.getInstance().getBoard().drawBoard());
-                                break;
-                            }
-                        }
-                    }
-                    canvas.getGraphicsContext2D().fillRect(x-length,y+j,length,1);
-                }
-                if(j==0)
-                {
-                    int length=1;
-                    for(;length<power;length++)
-                    {
-                        if(enemy.contains(x+i,y-length)&& enemy.isAlive())
-                            enemy.die();
+        for(int i = 1;i<=power;i++)
+        {
+            if(tileY+i<15 &&!(playground[tileX][tileY+i] instanceof Wall))
+            {
+                if(abs(tileX*25 - enemy.getX()) <=24 && abs(tileY*25+i*25 - enemy.getY()) <=24)
+                    enemy.die();
+                canvas.getGraphicsContext2D().fillRect(tileX*25,tileY*25+i*25, 25,25);
+            }
+        }
 
-                        Iterator<Fragile> it = fragiles.iterator();
-
-                        while(it.hasNext())
-                        {
-                            Fragile next = it.next();
-                            if(next.contains(x+i,y-length))
-                            {
-                                fragiles.remove(next);
-                                Platform.runLater(() -> ServerCommunicator.getInstance().getBoard().drawBoard());
-                                break;
-                            }
-                        }
-                    }
-                    canvas.getGraphicsContext2D().fillRect(x+i,y-length,1,length);
-                }
-                if(i==width-1)
-                {
-                    int length=1;
-                    for(;length<power;length++)
-                    {
-                        if (enemy.contains(x + width + length, y + j) && enemy.isAlive())
-                            enemy.die();
-
-
-                        Iterator<Fragile> it = fragiles.iterator();
-
-                        while (it.hasNext())
-                        {
-                            Fragile next = it.next();
-                            if (next.contains(x + width + length, y + j)) {
-                                fragiles.remove(next);
-                                Platform.runLater(() -> ServerCommunicator.getInstance().getBoard().drawBoard());
-                                break;
-                            }
-                        }
-                    }
-                    canvas.getGraphicsContext2D().fillRect(x+width,y+j,length,1);
-                }
-                if(j==height-1)
-                {
-                    int length=1;
-                    for(;length<power;length++)
-                    {
-                        if (enemy.contains(x + i, y + height + length) && enemy.isAlive())
-                            enemy.die();
-
-                        Iterator<Fragile> it = fragiles.iterator();
-
-                        while (it.hasNext()) {
-                            Fragile next = it.next();
-                            if (next.contains(x + i, y + height + length)) {
-                                fragiles.remove(next);
-                                Platform.runLater(() -> ServerCommunicator.getInstance().getBoard().drawBoard());
-                                break;
-                            }
-                        }
-                    }
-                    canvas.getGraphicsContext2D().fillRect(x+i,y+height,1,length);
-                }
+        for(int i = 1;i<=power;i++)
+        {
+            if(tileY-i>=0 && !(playground[tileX][tileY-i] instanceof Wall))
+            {
+                if(abs(tileX*25 - enemy.getX()) <=24 && abs(tileY*25-i*25 - enemy.getY()) <=24)
+                    enemy.die();
+                canvas.getGraphicsContext2D().fillRect(tileX*25,tileY*25-i*25, 25,25);
             }
         }
     }

@@ -47,14 +47,11 @@ public class ReadTask extends Task<Void> {
                     Stage window = new Stage();
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Game.fxml"));
 
-
                     int alX = Integer.parseInt(in.substring(5,8));
                     int alY = Integer.parseInt(in.substring(8,11));
 
                     int enX = Integer.parseInt(in.substring(11,14));
                     int enY = Integer.parseInt(in.substring(14,17));
-
-
 
                     try {
                         Parent root = fxmlLoader.load();

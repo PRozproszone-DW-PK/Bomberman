@@ -23,25 +23,25 @@ public class Board {
         playground = new BoardElement[width][height];
         fragiles = new ArrayList<>();
 
-        int spacing = 20;
+        final int spacing = 25;
 
         for(int i = 0; i<width; i++)
         {
             for(int j=0;j<height;j++)
             {
                 if(i==0 || i== width-1 || j==0 || j== height-1 || (i==3 && j!=2) || (i>6 && j==4))
-                    playground[i][j] = new Wall(i * spacing + 20, j * spacing +20,20,20);
+                    playground[i][j] = new Wall(i * spacing, j * spacing,25,25);
                 else if(i>3&& i<6 && j==2) {
-                    fragiles.add(new Fragile(i * spacing + 20, j * spacing + 20, 20, 20));
-                    playground[i][j] = new BoardElement(i * spacing + 20, j * spacing +20,20,20);
+                    fragiles.add(new Fragile(i * spacing, j * spacing, 25, 25));
+                    playground[i][j] = new BoardElement(i * spacing, j * spacing,25,25);
                 }
                 else
-                    playground[i][j] = new BoardElement(i * spacing + 20, j * spacing +20,20,20);
+                    playground[i][j] = new BoardElement(i * spacing, j * spacing,25,25);
             }
         }
 
-        player = new Player(5 * spacing + 20, 5 * spacing + 20, 20, 20,5, Color.BLUE);
-        enemy = new Player(7 * spacing + 20, 7 * spacing + 20, 20, 20,5, Color.RED);
+        player = new Player(5 * spacing, 5 * spacing, 25, 25,5, Color.BLUE);
+        enemy = new Player(7 * spacing, 7 * spacing, 25, 25,5, Color.RED);
     }
 
     public void drawBoard()

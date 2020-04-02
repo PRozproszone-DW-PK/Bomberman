@@ -1,6 +1,7 @@
 package sample.Game;
 
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public class BoardElement {
@@ -21,8 +22,11 @@ public class BoardElement {
 
     public void draw(Canvas canvas)
     {
-        canvas.getGraphicsContext2D().setFill(color);
-        canvas.getGraphicsContext2D().fillRect(x,y,width,height);
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.setFill(Color.BLACK);
+        gc.strokeRect(x,y,width,height);
+        gc.setFill(color);
+        gc.fillRect(x,y,width,height);
     }
 
     public Boolean contains(int x, int y)

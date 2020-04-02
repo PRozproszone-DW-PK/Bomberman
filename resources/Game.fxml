@@ -5,6 +5,6 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.GameController">
    <children>
-      <Canvas fx:id="canvas" height="350.0" width="600.0" />
+      <Canvas fx:id="canvas" height="450.0" width="450.0" />
    </children>
 </VBox>

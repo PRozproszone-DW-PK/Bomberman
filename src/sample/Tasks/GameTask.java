@@ -44,23 +44,15 @@ public class GameTask extends Task<Void> {
                 int x = Integer.parseInt((in.substring(3,6)));
                 int y = Integer.parseInt((in.substring(6,9)));
 
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        board.getEnemy().setX(x);
-                        board.getEnemy().setY(y);
-                        board.drawBoard();
-                    }
+                Platform.runLater(() -> {
+                    board.getEnemy().setX(x);
+                    board.getEnemy().setY(y);
+                    board.drawBoard();
                 });
             }
             else if(in.substring(0,3).equals("bmb"))
             {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        ServerCommunicator.getInstance().placeBomb(board.getEnemy());
-                    }
-                });
+                Platform.runLater(() -> ServerCommunicator.getInstance().placeBomb(board.getEnemy()));
             }
         }
 

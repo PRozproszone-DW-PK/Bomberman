@@ -103,7 +103,7 @@ public class ServerCommunicator {
 
     public void placeBomb(Player player)
     {
-        player.getBomb().place(player.getX()+5,player.getY()+5);
+        player.getBomb().place(((player.getX()+12)/25)*25,((player.getY()+12)/25)*25);
         poolExecutor.submit(new BombTask(player.getBomb()));
     }
     public void endMsg()

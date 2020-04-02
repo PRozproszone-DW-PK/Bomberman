@@ -18,7 +18,7 @@ public class Player extends BoardElement {
         this.alive = true;
         this.color = color;
 
-        this.bomb = new Bomb(x,y,10,10);
+        this.bomb = new Bomb(x,y,25,25);
     }
 
     public void moveLeft()
@@ -66,7 +66,7 @@ public class Player extends BoardElement {
     {
         if(!bomb.isPlaced())
         {
-            bomb.place(x+5,y+5);
+            bomb.place(((x+12)/25)*25,((y+12)/25)*25);
             ServerCommunicator.getInstance().placeBomb(this);
             ServerCommunicator.getInstance().bombMsg();
         }
