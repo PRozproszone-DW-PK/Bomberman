@@ -35,6 +35,10 @@ public class GameTask extends Task<Void> {
                 GameController.endGame((Stage) (board.getCanvas()).getScene().getWindow(),"win");
                 break;
             }
+            else  if(in.substring(0,3).equals("ext")) {
+                GameController.endGame((Stage) (board.getCanvas()).getScene().getWindow(),"sur");
+                break;
+            }
             else if(in.substring(0,3).equals("los")) {
                 GameController.endGame((Stage) (board.getCanvas()).getScene().getWindow(),"los");
                 break;

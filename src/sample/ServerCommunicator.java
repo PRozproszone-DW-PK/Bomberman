@@ -111,4 +111,9 @@ public class ServerCommunicator {
         Task<Void> sendTask = new SendTask("end", server);
         executor.submit(sendTask);
     }
+    public void exitMsg()
+    {
+        Task<Void> sendTask = new SendTask("ext", server);
+        executor.submit(sendTask);
+    }
 }

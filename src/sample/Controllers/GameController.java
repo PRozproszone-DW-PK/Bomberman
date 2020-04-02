@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import sample.Game.Board;
 import sample.ServerCommunicator;
@@ -118,7 +119,8 @@ public class GameController implements Initializable {
                     EndGameController gc = fxmlLoader.getController();
                     window.show();
                     if(score.equals("win"))gc.setScore("You win !!!");
-                    else gc.setScore("You lost !!!");
+                    else if(score.equals("los")) gc.setScore("You lost !!!");
+                    else gc.setScore("Enemy has surrendered !!!");
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -126,5 +128,11 @@ public class GameController implements Initializable {
             }
         });
     }
-
+    @FXML
+    public void exit(MouseEvent e)
+    {
+        ServerCommunicator.getInstance().exitMsg();
+        Platform.exit();
+        System.exit(0);
+    }
 }
