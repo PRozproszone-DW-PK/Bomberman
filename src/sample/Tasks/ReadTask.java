@@ -59,7 +59,7 @@ public class ReadTask extends Task<Void> {
                     try {
                         Parent root = fxmlLoader.load();
 
-                        window.setScene(new Scene(root, 400, 400));
+                        window.setScene(new Scene(root, 400, 500));
                         GameController gc = fxmlLoader.getController();
                         gc.setAlly(alX,alY);
                         gc.setEnemy(enX,enY);

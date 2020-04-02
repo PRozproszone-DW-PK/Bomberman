@@ -21,6 +21,7 @@ public class EndGameController {
     @FXML
     public void exit(MouseEvent e)
     {
+        ServerCommunicator.getInstance().exitMsg();
         Platform.exit();
         System.exit(0);
     }
