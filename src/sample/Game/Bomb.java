@@ -51,46 +51,48 @@ public class Bomb extends BoardElement {
 
         //if(playground[tileX][tileY])
 
-
-
         for(int i = 1;i<=power;i++)
         {
             if(tileX+i<15 && !(playground[tileX+i][tileY] instanceof Wall))
             {
+                canvas.getGraphicsContext2D().fillRect(tileX*25+i*25,tileY*25, 25,25);
                 if(abs(tileX*25+i*25 - enemy.getX()) <=24 && abs(tileY*25 - enemy.getY()) <=24)
                     enemy.die();
-                canvas.getGraphicsContext2D().fillRect(tileX*25+i*25,tileY*25, 25,25);
             }
+            else break;
         }
 
         for(int i = 1;i<=power;i++)
         {
             if(tileX-i>=0 && !(playground[tileX-i][tileY] instanceof Wall))
             {
+                canvas.getGraphicsContext2D().fillRect(tileX*25-i*25,tileY*25, 25,25);
                 if(abs(tileX*25-i*25 - enemy.getX()) <=24 && abs(tileY*25 - enemy.getY()) <=24)
                     enemy.die();
-                canvas.getGraphicsContext2D().fillRect(tileX*25-i*25,tileY*25, 25,25);
             }
+            else break;
         }
 
         for(int i = 1;i<=power;i++)
         {
             if(tileY+i<15 &&!(playground[tileX][tileY+i] instanceof Wall))
             {
+                canvas.getGraphicsContext2D().fillRect(tileX*25,tileY*25+i*25, 25,25);
                 if(abs(tileX*25 - enemy.getX()) <=24 && abs(tileY*25+i*25 - enemy.getY()) <=24)
                     enemy.die();
-                canvas.getGraphicsContext2D().fillRect(tileX*25,tileY*25+i*25, 25,25);
             }
+            else break;
         }
 
         for(int i = 1;i<=power;i++)
         {
             if(tileY-i>=0 && !(playground[tileX][tileY-i] instanceof Wall))
             {
+                canvas.getGraphicsContext2D().fillRect(tileX*25,tileY*25-i*25, 25,25);
                 if(abs(tileX*25 - enemy.getX()) <=24 && abs(tileY*25-i*25 - enemy.getY()) <=24)
                     enemy.die();
-                canvas.getGraphicsContext2D().fillRect(tileX*25,tileY*25-i*25, 25,25);
             }
+            else break;
         }
     }
 

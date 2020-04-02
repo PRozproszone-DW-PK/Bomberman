@@ -92,10 +92,9 @@ public class GameController implements Initializable {
                     ServerCommunicator.getInstance().moveMsg(e.getCode());
                 }
             }
-            else if(e.getCode()== KeyCode.SPACE)
+            else if(e.getCode()== KeyCode.B)
             {
                 board.getPlayer().placeBomb();
-               // ServerCommunicator.getInstance().placeBomb(board.getPlayer());
             }
 
             board.drawBoard();
