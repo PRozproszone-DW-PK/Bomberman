@@ -53,7 +53,7 @@ public class PlayerTask implements Runnable {
                             server3.start();
                             break;
                         case "mov":
-                            enemySocket.getOutputStream().write((msg.substring(0, 9)).getBytes());
+                            Synchronizer.move(socket,enemySocket, msg);
                             break;
                         case "bmb":
                             enemySocket.getOutputStream().write("bmb".getBytes());

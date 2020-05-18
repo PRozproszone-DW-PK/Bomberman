@@ -13,7 +13,6 @@ public class Server {
     private Socket player1;
     private Socket player2;
     ThreadPoolExecutor poolExecutor;
-    boolean gameOn;
 
     public Server()
     {
@@ -29,8 +28,8 @@ public class Server {
             player2 = serverSocket.accept();
             System.out.println("Player 2 connected");
 
-            player1.getOutputStream().write("start120120160160".getBytes(StandardCharsets.US_ASCII));
-            player2.getOutputStream().write("start160160120120".getBytes(StandardCharsets.US_ASCII));
+            player1.getOutputStream().write("start025025325325".getBytes(StandardCharsets.US_ASCII));
+            player2.getOutputStream().write("start325325025025".getBytes(StandardCharsets.US_ASCII));
 
             System.out.println("Game is about to start");
 
