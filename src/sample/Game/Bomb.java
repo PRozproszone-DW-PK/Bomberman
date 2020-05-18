@@ -1,10 +1,7 @@
 package sample.Game;
 
-import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import sample.ServerCommunicator;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -36,7 +33,6 @@ public class Bomb extends BoardElement {
         this.x = x;
         this.y = y;
         this.placed = true;
-       // ServerCommunicator.getInstance().placeBomb(this);
     }
 
     public void explode(Canvas canvas, BoardElement[][] playground, Player enemy, ArrayList<Fragile> fragiles)
@@ -49,7 +45,9 @@ public class Bomb extends BoardElement {
         final int tileX = this.x/25;
         final int tileY = this.y/25;
 
-        //if(playground[tileX][tileY])
+        canvas.getGraphicsContext2D().fillRect(tileX*25,tileY*25, 25,25);
+        if(abs(tileX*25 - enemy.getX()) <=24 && abs(tileY*25 - enemy.getY()) <=24)
+            enemy.die();
 
         for(int i = 1;i<=power;i++)
         {
@@ -58,6 +56,18 @@ public class Bomb extends BoardElement {
                 canvas.getGraphicsContext2D().fillRect(tileX*25+i*25,tileY*25, 25,25);
                 if(abs(tileX*25+i*25 - enemy.getX()) <=24 && abs(tileY*25 - enemy.getY()) <=24)
                     enemy.die();
+
+                Iterator<Fragile> it = fragiles.iterator();
+
+                while(it.hasNext())
+                {
+                    Fragile next = it.next();
+                    if(abs(tileX*25+i*25 - next.getX()) <=24 && abs(tileY*25 - next.getY()) <=24)
+                    {
+                        fragiles.remove(next);
+                        break;
+                    }
+                }
             }
             else break;
         }
@@ -69,6 +79,18 @@ public class Bomb extends BoardElement {
                 canvas.getGraphicsContext2D().fillRect(tileX*25-i*25,tileY*25, 25,25);
                 if(abs(tileX*25-i*25 - enemy.getX()) <=24 && abs(tileY*25 - enemy.getY()) <=24)
                     enemy.die();
+
+                Iterator<Fragile> it = fragiles.iterator();
+
+                while(it.hasNext())
+                {
+                    Fragile next = it.next();
+                    if(abs(tileX*25-i*25 - next.getX()) <=24 && abs(tileY*25 - next.getY()) <=24)
+                    {
+                        fragiles.remove(next);
+                        break;
+                    }
+                }
             }
             else break;
         }
@@ -80,6 +102,18 @@ public class Bomb extends BoardElement {
                 canvas.getGraphicsContext2D().fillRect(tileX*25,tileY*25+i*25, 25,25);
                 if(abs(tileX*25 - enemy.getX()) <=24 && abs(tileY*25+i*25 - enemy.getY()) <=24)
                     enemy.die();
+
+                Iterator<Fragile> it = fragiles.iterator();
+
+                while(it.hasNext())
+                {
+                    Fragile next = it.next();
+                    if(abs(tileX*25 - next.getX()) <=24 && abs(tileY*25+i*25 - next.getY()) <=24)
+                    {
+                        fragiles.remove(next);
+                        break;
+                    }
+                }
             }
             else break;
         }
@@ -91,6 +125,18 @@ public class Bomb extends BoardElement {
                 canvas.getGraphicsContext2D().fillRect(tileX*25,tileY*25-i*25, 25,25);
                 if(abs(tileX*25 - enemy.getX()) <=24 && abs(tileY*25-i*25 - enemy.getY()) <=24)
                     enemy.die();
+
+                Iterator<Fragile> it = fragiles.iterator();
+
+                while(it.hasNext())
+                {
+                    Fragile next = it.next();
+                    if(abs(tileX*25 - next.getX()) <=24 && abs(tileY*25-i*25 - next.getY()) <=24)
+                    {
+                        fragiles.remove(next);
+                        break;
+                    }
+                }
             }
             else break;
         }

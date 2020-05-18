@@ -29,7 +29,7 @@ public class BoardElement {
         gc.fillRect(x,y,width,height);
     }
 
-    public Boolean contains(int x, int y)
+    public synchronized Boolean contains(int x, int y)
     {
         return x >= this.x && x <= this.x + this.width-1 && y >= this.y && y <= this.y + this.height-1;
     }
@@ -38,11 +38,11 @@ public class BoardElement {
         return x;
     }
 
-    public void setX(int x) {
+    public synchronized void setX(int x) {
         this.x = x;
     }
 
-    public void setY(int y) {
+    public synchronized void setY(int y) {
         this.y = y;
     }
 

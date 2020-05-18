@@ -128,7 +128,7 @@ public class GameController implements Initializable {
         });
     }
     @FXML
-    public void exit(MouseEvent e)
+    public void exit()
     {
         ServerCommunicator.getInstance().exitMsg();
         Platform.exit();

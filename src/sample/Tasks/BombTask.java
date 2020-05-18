@@ -18,12 +18,9 @@ public class BombTask extends Task<Void> {
     @Override
     protected Void call() throws Exception {
 
-        //bomb.setPlaced(true);
-
         bomb.changeColor(Color.BLACK);
 
         Platform.runLater(() -> bomb.draw(ServerCommunicator.getInstance().getBoard().getCanvas()));
-
 
         Thread.sleep(1000);
         bomb.changeColor(Color.ORANGE);
@@ -33,8 +30,8 @@ public class BombTask extends Task<Void> {
 
         ServerCommunicator sc = ServerCommunicator.getInstance();
 
-        for (int i = 0; i < 700; i++) {
-            Thread.sleep(1);
+        for (int i = 0; i < 100; i++) {
+            Thread.sleep(5);
             Platform.runLater(() -> bomb.explode(sc.getBoard().getCanvas(),sc.getBoard().getPlayground(),sc.getBoard().getEnemy(),sc.getBoard().getFragiles()));
         }
         bomb.setPlaced(false);
