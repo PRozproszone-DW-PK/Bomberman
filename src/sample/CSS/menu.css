@@ -7,7 +7,7 @@
             linear-gradient(#8f8477,#6b6359);
 }
 
-.label {
+.title {
     -fx-text-fill: #654b00;
     -fx-padding: 10px;
     -fx-font-weight: bold;

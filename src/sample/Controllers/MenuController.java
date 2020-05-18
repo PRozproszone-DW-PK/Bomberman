@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -17,12 +18,14 @@ import java.util.ResourceBundle;
 public class MenuController implements Initializable {
 
     private MediaPlayer mediaPlayer;
-
+    @FXML
+    Label room;
     @FXML
     public void play(MouseEvent e)
     {
-        ServerCommunicator.getInstance().openSocket("25.103.157.11");
-        //ServerCommunicator.getInstance().openSocket("localhost");//("25.103.157.11");
+        room.setText("Wait for enemy");
+        //ServerCommunicator.getInstance().openSocket("25.103.157.11");
+        ServerCommunicator.getInstance().openSocket("localhost");//("25.103.157.11");
         ServerCommunicator.getInstance().read((Stage)((Button) e.getSource()).getScene().getWindow());
     }
 

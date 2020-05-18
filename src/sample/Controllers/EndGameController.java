@@ -12,10 +12,13 @@ public class EndGameController {
     @FXML
     Label label;
     @FXML
+    Label room;
+    @FXML
     public void playAgain(MouseEvent e)
     {
-        ServerCommunicator.getInstance().openSocket("25.103.157.11");
-        //ServerCommunicator.getInstance().openSocket("localhost");//("25.103.157.11");
+        room.setText("Wait for enemy");
+        //ServerCommunicator.getInstance().openSocket("25.103.157.11");
+        ServerCommunicator.getInstance().openSocket("localhost");//("25.103.157.11");
         ServerCommunicator.getInstance().read((Stage)((Button) e.getSource()).getScene().getWindow());
     }
     @FXML
