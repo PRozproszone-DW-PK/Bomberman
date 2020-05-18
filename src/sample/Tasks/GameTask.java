@@ -58,6 +58,17 @@ public class GameTask extends Task<Void> {
             {
                 Platform.runLater(() -> ServerCommunicator.getInstance().placeBomb(board.getEnemy()));
             }
+            else if(in.substring(0,3).equals("ymv"))
+            {
+                int x = Integer.parseInt((in.substring(3,6)));
+                int y = Integer.parseInt((in.substring(6,9)));
+
+                Platform.runLater(() -> {
+                    board.getPlayer().setX(x);
+                    board.getPlayer().setY(y);
+                    board.drawBoard();
+                });
+            }
         }
 
         return null;

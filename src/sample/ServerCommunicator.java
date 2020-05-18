@@ -69,12 +69,10 @@ public class ServerCommunicator {
         return board;
     }
 
-    public void moveMsg(KeyCode key)
+    public void moveMsg(int x, int y)
     {
-        Player player = board.getPlayer();
-
-        String plX = String.valueOf(player.getX());
-        String plY = String.valueOf(player.getY());
+        String plX = String.valueOf(x);
+        String plY = String.valueOf(y);
 
         plX = "0".repeat(3-plX.length()) + plX;
         plY = "0".repeat(3-plY.length()) + plY;

@@ -14,13 +14,11 @@ import java.net.Socket;
 
 public class ReadTask extends Task<Void> {
 
-    private byte[] input;
     private Socket server;
     private Stage stage;
     private Board board;
 
     public ReadTask(Socket server,Stage stage) {
-        input = new byte[8];
         this.server = server;
         this.stage = stage;
     }

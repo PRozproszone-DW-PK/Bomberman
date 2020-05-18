@@ -58,8 +58,8 @@ public class GameController implements Initializable {
                         board.getPlayer().getX()+board.getPlayer().getWidth()-1,
                         board.getPlayer().getY()-board.getPlayer().getMoveSpeed()))
                 {
-                    board.getPlayer().moveUp();
-                    ServerCommunicator.getInstance().moveMsg(e.getCode());
+                    //board.getPlayer().moveUp();
+                    ServerCommunicator.getInstance().moveMsg(board.getPlayer().getX(),board.getPlayer().getY()-5);
                 }
             }
             else if(e.getCode()== KeyCode.A)
@@ -68,8 +68,9 @@ public class GameController implements Initializable {
                         board.getPlayer().getY()+board.getPlayer().getHeight()-1,
                         board.getPlayer().getX()-board.getPlayer().getMoveSpeed()))
                 {
-                    board.getPlayer().moveLeft();
-                    ServerCommunicator.getInstance().moveMsg(e.getCode());
+                    //board.getPlayer().moveLeft();
+                    //ServerCommunicator.getInstance().moveMsg(e.getCode());
+                    ServerCommunicator.getInstance().moveMsg(board.getPlayer().getX()-5,board.getPlayer().getY());
                 }
             }
             else if(e.getCode()== KeyCode.S)
@@ -78,8 +79,9 @@ public class GameController implements Initializable {
                         board.getPlayer().getX()+board.getPlayer().getWidth()-1,
                         board.getPlayer().getY()+board.getPlayer().getHeight()+board.getPlayer().getMoveSpeed()-1))
                 {
-                    board.getPlayer().moveDown();
-                    ServerCommunicator.getInstance().moveMsg(e.getCode());
+                    //board.getPlayer().moveDown();
+                    //ServerCommunicator.getInstance().moveMsg(e.getCode());
+                    ServerCommunicator.getInstance().moveMsg(board.getPlayer().getX(),board.getPlayer().getY()+5);
                 }
             }
             else if(e.getCode()== KeyCode.D)
@@ -88,8 +90,10 @@ public class GameController implements Initializable {
                         board.getPlayer().getY()+board.getPlayer().getHeight()-1,
                         board.getPlayer().getX()+board.getPlayer().getWidth()+board.getPlayer().getMoveSpeed()-1))
                 {
-                    board.getPlayer().moveRight();
-                    ServerCommunicator.getInstance().moveMsg(e.getCode());
+                    //ServerCommunicator.getInstance().moveMsg(e.getCode());
+                    ServerCommunicator.getInstance().moveMsg(board.getPlayer().getX()+5,board.getPlayer().getY());
+                    //board.getPlayer().moveRight();
+
                 }
             }
             else if(e.getCode()== KeyCode.B)
