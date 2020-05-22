@@ -68,8 +68,25 @@ public class ServerCommunicator {
     {
         return board;
     }
+    public void statusMsg(int x, int y,int bomb_x, int bomb_y,boolean bomb_status,int movCounter )
+    {
+        String plX = String.valueOf(x);
+        String plY = String.valueOf(y);
+        String bmX = String.valueOf(bomb_x);
+        String bmY = String.valueOf(bomb_y);
+        String bmS = String.valueOf(bomb_status);
+        String mc = String.valueOf(movCounter);
 
-    public void moveMsg(int x, int y)
+        plX = "0".repeat(3-plX.length()) + plX;
+        plY = "0".repeat(3-plY.length()) + plY;
+        bmX = "0".repeat(3-bmX.length()) + bmX;
+        bmY = "0".repeat(3-bmY.length()) + bmY;
+        mc = "0".repeat(4-mc.length()) + mc;
+
+        Task<Void> sendTask = new SendTask("sta" + plX + plY + bmX + bmY + bmS + mc , server);
+        executor.submit(sendTask);
+    }
+   /* public void moveMsg(int x, int y)
     {
         String plX = String.valueOf(x);
         String plY = String.valueOf(y);
@@ -81,11 +98,12 @@ public class ServerCommunicator {
         executor.submit(sendTask);
     }
 
+
     public void bombMsg()
     {
         Task<Void> sendTask = new SendTask("bmb", server);
         executor.submit(sendTask);
-    }
+    }*/
 
     public void read(Stage stage)
     {

@@ -12,13 +12,29 @@ public class Player extends BoardElement {
     private boolean alive;
     private Bomb bomb;
 
+    public void setMovCounter(int movCounter) {
+        this.movCounter = movCounter;
+    }
+
+    private int movCounter;
+
+
+
+
     public Player(int x, int y, int width, int height, int moveSpeed, Color color) {
         super(x, y, width, height);
         this.moveSpeed = moveSpeed;
         this.alive = true;
         this.color = color;
+        this.movCounter=0;
 
         this.bomb = new Bomb(x,y,25,25);
+    }
+    public int getMovCounter() {
+        return movCounter;
+    }
+    public void incrementMovCounter() {
+        this.movCounter++;
     }
 
     public void moveLeft()
@@ -66,9 +82,10 @@ public class Player extends BoardElement {
     {
         if(!bomb.isPlaced())
         {
+            incrementMovCounter();
             bomb.place(((x+12)/25)*25,((y+12)/25)*25);
             ServerCommunicator.getInstance().placeBomb(this);
-            ServerCommunicator.getInstance().bombMsg();
+            //ServerCommunicator.getInstance().bombMsg();
         }
     }
 

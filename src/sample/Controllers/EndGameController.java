@@ -18,6 +18,7 @@ public class EndGameController {
     {
         room.setText("Wait for enemy");
         //ServerCommunicator.getInstance().openSocket("25.103.157.11");
+        //ServerCommunicator.getInstance().openSocket("25.85.234.100");
         ServerCommunicator.getInstance().openSocket("localhost");//("25.103.157.11");
         ServerCommunicator.getInstance().read((Stage)((Button) e.getSource()).getScene().getWindow());
     }

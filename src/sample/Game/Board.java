@@ -5,6 +5,7 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Queue;
 
 public class Board {
     //zmienic tak zeby sciany przechowywac osobno od playgrounda bo po co je rysowac za kazdym razem jak sie nie zmieniaja
@@ -16,11 +17,25 @@ public class Board {
     private Player player;
     private Player enemy;
 
+
+
+    private ArrayList<GameStatus> moves;
+
+    public ArrayList<GameStatus> getMoves() {
+        return moves;
+    }
+
+    public void addMov(GameStatus gs) {
+        moves.add(gs);
+    }
+
     public Board(Canvas canvas) {
         this.canvas = canvas;
         width=15;
         height=15;
         playground = new BoardElement[width][height];
+        moves = new ArrayList<>();
+
         fragiles = new ArrayList<>();
         char map[][] =
                {{'w','w','w','w','w','w','w','w','w','w','w','w','w','w','w'},
