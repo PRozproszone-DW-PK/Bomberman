@@ -83,7 +83,7 @@ public class ServerCommunicator {
         bmY = "0".repeat(3-bmY.length()) + bmY;
         mc = "0".repeat(4-mc.length()) + mc;
 
-        Task<Void> sendTask = new SendTask("sta" + plX + plY + bmX + bmY + bmS + mc , server);
+        Task<Void> sendTask = new SendTask("sta" + plX + plY + bmX + bmY + "0" + mc , server);
         executor.submit(sendTask);
     }
    /* public void moveMsg(int x, int y)
