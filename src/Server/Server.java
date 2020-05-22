@@ -9,14 +9,13 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 public class Server {
 
-    private ServerSocket serverSocket;
     private Socket player1;
     private Socket player2;
     ThreadPoolExecutor poolExecutor;
 
     public Server()
     {
-        poolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(2);
+        poolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(3);
     }
 
     public void start()
@@ -33,19 +32,12 @@ public class Server {
 
             System.out.println("Game is about to start");
 
-            poolExecutor.submit(new PlayerTask(player1,player2,1, serverSocket));
-            poolExecutor.submit(new PlayerTask(player2,player1,2, serverSocket));
+            GameThread game = new GameThread(player1,player2);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+            poolExecutor.submit(new PlayerTask(player1,player2,1, serverSocket, game));
+            poolExecutor.submit(new PlayerTask(player2,player1,2, serverSocket, game));
+            poolExecutor.submit(game);
 
-
-    public void gameOver()
-    {
-        try {
-            serverSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

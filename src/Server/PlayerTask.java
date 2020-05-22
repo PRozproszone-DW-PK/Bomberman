@@ -14,13 +14,16 @@ public class PlayerTask implements Runnable {
     private ServerSocket server;
     byte[] buffer;
 
-    public PlayerTask(Socket socket, Socket enemySocket, int num, ServerSocket server)
+    private GameThread game;
+
+    public PlayerTask(Socket socket, Socket enemySocket, int num, ServerSocket server, GameThread game)
     {
         playerNum = num;
-        buffer = new byte[9];
+        buffer = new byte[20];
         this.socket = socket;
         this.enemySocket = enemySocket;
         this.server = server;
+        this.game = game;
     }
 
     @Override
@@ -30,7 +33,7 @@ public class PlayerTask implements Runnable {
 
             while(socket.isConnected() && !server.isClosed())
             {
-                if(buffIn.read(buffer,0,9)!=-1) {
+                if(buffIn.read(buffer,0,20)!=-1) {
 
                     String msg = new String(buffer);
 
@@ -52,11 +55,9 @@ public class PlayerTask implements Runnable {
                             Server server3 = new Server();
                             server3.start();
                             break;
-                        case "mov":
-                            Synchronizer.move(socket,enemySocket, msg);
-                            break;
-                        case "bmb":
-                            enemySocket.getOutputStream().write("bmb".getBytes());
+                        case "sta":
+                            //System.out.println(msg);
+                            game.addMove((msg.substring(3, 20))+playerNum);
                             break;
                     }
                 }
