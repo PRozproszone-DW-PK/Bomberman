@@ -57,7 +57,7 @@ public class PlayerTask implements Runnable {
                             break;
                         case "sta":
                             //System.out.println(msg);
-                            game.addMove((msg.substring(3, 20))+playerNum);
+                            game.addMove((msg.substring(3, 20))+ playerNum);
                             break;
                     }
                 }
