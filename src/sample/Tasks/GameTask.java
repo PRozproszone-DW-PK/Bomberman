@@ -22,11 +22,11 @@ public class GameTask extends Task<Void> {
     @Override
     protected Void call() throws Exception {
 
-        byte[] input = new byte[33];
+        byte[] input = new byte[34];
 
         while(true) {
             try {
-                ServerCommunicator.getInstance().getSocket().getInputStream().read(input, 0, 33);
+                ServerCommunicator.getInstance().getSocket().getInputStream().read(input, 0, 34);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -60,34 +60,57 @@ public class GameTask extends Task<Void> {
                 int my_bomb_state = Integer.parseInt((in.substring(27,28)));
                 int enemy_bomb_state = Integer.parseInt((in.substring(28,29)));
                 int mov_number = Integer.parseInt((in.substring(29,33)));
-
+                int back = Integer.parseInt((in.substring(33,34)));
 
                 Platform.runLater(() -> {
 
+                    if(back==1) {
+                        for (int i = 0; i < board.getMoves().size(); i++) {
+                            if (mov_number == board.getMoves().get(i).getMov_number()) {
+                                if (board.getMoves().get(i).getMy_x() == my_x && board.getMoves().get(i).getMy_y() == my_y) {
+                                    board.getMoves().remove(i);
+                                } else {
+                                    board.getPlayer().setX(my_x);
+                                    board.getPlayer().setY(my_y);
+                                    board.getPlayer().setMovCounter(mov_number);
+                                    board.getMoves().clear();
+                                }
+                                break;
+                            }
+                        }
 
-//                    for(int i=0;i<board.getMoves().size();i++)
-//                    {
-//                        if(mov_number == board.getMoves().get(i).getMov_number())
-//                        {
-//                            if(board.getMoves().get(i).getMy_x()==my_x && board.getMoves().get(i).getMy_y()==my_y )
-//                            {
-//                                board.getMoves().remove(i);
-//                            }
-//                            else {
-//                                board.getPlayer().setX(my_x);
-//                                board.getPlayer().setY(my_y);
-//                                board.getPlayer().setMovCounter(mov_number);
-//                                board.getMoves().clear();
-//                            }
-//                            break;
-//                        }
-//                    }
+                        if (board.getEnemyMoves().size() >= 2) {
+                            if (board.getEnemyMoves().get(board.getEnemyMoves().size()).getMy_x() - board.getEnemyMoves().get(board.getEnemyMoves().size() - 1).getMy_x() < 0) {
+                                //PRAWO
+                                //board.getEnemy().setX(board.getEnemy().getX()+5);
+                                board.getEnemy().setX(enemy_x+5);
 
-                    board.getPlayer().setX(my_x);
-                    board.getPlayer().setY(my_y);
+                            }
+                            if (board.getEnemyMoves().get(board.getEnemyMoves().size()).getMy_x() - board.getEnemyMoves().get(board.getEnemyMoves().size() - 1).getMy_x() > 0) {
+                                //LEWO
+                                board.getEnemy().setX(enemy_x-5);
 
-                    board.getEnemy().setX(enemy_x);
-                    board.getEnemy().setY(enemy_y);
+                            }
+                            if (board.getEnemyMoves().get(board.getEnemyMoves().size()).getMy_y() - board.getEnemyMoves().get(board.getEnemyMoves().size() - 1).getMy_y() < 0) {
+                                //Dół
+
+                                board.getEnemy().setY(enemy_y+5);
+                            }
+                            if (board.getEnemyMoves().get(board.getEnemyMoves().size()).getMy_y() - board.getEnemyMoves().get(board.getEnemyMoves().size() - 1).getMy_y() > 0) {
+                                //góra
+
+                                board.getEnemy().setY(enemy_y-5);
+                            }
+                        }
+                    }
+                    else {
+                        board.addEnemyMov(new GameStatus(enemy_bomb_x, enemy_bomb_y, mov_number));
+                        board.getEnemy().setX(enemy_x);
+                        board.getEnemy().setY(enemy_y);
+                    }
+
+
+
 
                     //Platform.runLater(() -> ServerCommunicator.getInstance().placeBomb(board.getEnemy()));
                     board.drawBoard();

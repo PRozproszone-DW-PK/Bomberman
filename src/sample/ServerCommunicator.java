@@ -82,7 +82,7 @@ public class ServerCommunicator {
         bmX = "0".repeat(3-bmX.length()) + bmX;
         bmY = "0".repeat(3-bmY.length()) + bmY;
         mc = "0".repeat(4-mc.length()) + mc;
-
+        System.out.println("sta" + plX + plY + bmX + bmY + "0" + mc );
         Task<Void> sendTask = new SendTask("sta" + plX + plY + bmX + bmY + "0" + mc , server);
         executor.submit(sendTask);
     }
@@ -90,15 +90,11 @@ public class ServerCommunicator {
     {
         String plX = String.valueOf(x);
         String plY = String.valueOf(y);
-
         plX = "0".repeat(3-plX.length()) + plX;
         plY = "0".repeat(3-plY.length()) + plY;
-
         Task<Void> sendTask = new SendTask("mov" + plX + plY, server);
         executor.submit(sendTask);
     }
-
-
     public void bombMsg()
     {
         Task<Void> sendTask = new SendTask("bmb", server);
