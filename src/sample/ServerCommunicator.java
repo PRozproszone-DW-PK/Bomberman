@@ -39,7 +39,7 @@ public class ServerCommunicator {
     public void openSocket(String address)
     {
         try {
-            server = new Socket( address, 9797);
+            server = new Socket( address, 50000);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -74,7 +74,11 @@ public class ServerCommunicator {
         String plY = String.valueOf(y);
         String bmX = String.valueOf(bomb_x);
         String bmY = String.valueOf(bomb_y);
-        String bmS = String.valueOf(bomb_status);
+        String bmS;
+        if(bomb_status)bmS = String.valueOf(1);
+        else bmS = String.valueOf(0);
+
+
         String mc = String.valueOf(movCounter);
 
         plX = "0".repeat(3-plX.length()) + plX;
@@ -83,7 +87,7 @@ public class ServerCommunicator {
         bmY = "0".repeat(3-bmY.length()) + bmY;
         mc = "0".repeat(4-mc.length()) + mc;
         System.out.println("sta" + plX + plY + bmX + bmY + "0" + mc );
-        Task<Void> sendTask = new SendTask("sta" + plX + plY + bmX + bmY + "0" + mc , server);
+        Task<Void> sendTask = new SendTask("sta" + plX + plY + bmX + bmY + bmS + mc , server);
         executor.submit(sendTask);
     }
    /* public void moveMsg(int x, int y)
@@ -113,11 +117,11 @@ public class ServerCommunicator {
         gameExecutor.submit(gameTask);
     }
 
-    public void placeBomb(Player player)
+    /*public void placeBomb(Player player)
     {
         player.getBomb().place(((player.getX()+12)/25)*25,((player.getY()+12)/25)*25);
         poolExecutor.submit(new BombTask(player.getBomb()));
-    }
+    }*/
     public void endMsg()
     {
         Task<Void> sendTask = new SendTask("end", server);

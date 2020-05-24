@@ -35,7 +35,7 @@ public class Bomb extends BoardElement {
         this.placed = true;
     }
 
-    public void explode(Canvas canvas, BoardElement[][] playground, Player enemy, ArrayList<Fragile> fragiles)
+    public void explode(Canvas canvas, BoardElement[][] playground, Player player, ArrayList<Fragile> fragiles)
     {
         int power = 2;
 
@@ -46,16 +46,16 @@ public class Bomb extends BoardElement {
         final int tileY = this.y/25;
 
         canvas.getGraphicsContext2D().fillRect(tileX*25,tileY*25, 25,25);
-        if(abs(tileX*25 - enemy.getX()) <=24 && abs(tileY*25 - enemy.getY()) <=24)
-            enemy.die();
+        if(abs(tileX*25 - player.getX()) <=24 && abs(tileY*25 - player.getY()) <=24)
+            player.die();
 
         for(int i = 1;i<=power;i++)
         {
             if(tileX+i<15 && !(playground[tileX+i][tileY] instanceof Wall))
             {
                 canvas.getGraphicsContext2D().fillRect(tileX*25+i*25,tileY*25, 25,25);
-                if(abs(tileX*25+i*25 - enemy.getX()) <=24 && abs(tileY*25 - enemy.getY()) <=24)
-                    enemy.die();
+                if(abs(tileX*25+i*25 - player.getX()) <=24 && abs(tileY*25 - player.getY()) <=24)
+                    player.die();
 
                 Iterator<Fragile> it = fragiles.iterator();
 
@@ -77,8 +77,8 @@ public class Bomb extends BoardElement {
             if(tileX-i>=0 && !(playground[tileX-i][tileY] instanceof Wall))
             {
                 canvas.getGraphicsContext2D().fillRect(tileX*25-i*25,tileY*25, 25,25);
-                if(abs(tileX*25-i*25 - enemy.getX()) <=24 && abs(tileY*25 - enemy.getY()) <=24)
-                    enemy.die();
+                if(abs(tileX*25-i*25 - player.getX()) <=24 && abs(tileY*25 - player.getY()) <=24)
+                    player.die();
 
                 Iterator<Fragile> it = fragiles.iterator();
 
@@ -100,8 +100,8 @@ public class Bomb extends BoardElement {
             if(tileY+i<15 &&!(playground[tileX][tileY+i] instanceof Wall))
             {
                 canvas.getGraphicsContext2D().fillRect(tileX*25,tileY*25+i*25, 25,25);
-                if(abs(tileX*25 - enemy.getX()) <=24 && abs(tileY*25+i*25 - enemy.getY()) <=24)
-                    enemy.die();
+                if(abs(tileX*25 - player.getX()) <=24 && abs(tileY*25+i*25 - player.getY()) <=24)
+                    player.die();
 
                 Iterator<Fragile> it = fragiles.iterator();
 
@@ -123,8 +123,8 @@ public class Bomb extends BoardElement {
             if(tileY-i>=0 && !(playground[tileX][tileY-i] instanceof Wall))
             {
                 canvas.getGraphicsContext2D().fillRect(tileX*25,tileY*25-i*25, 25,25);
-                if(abs(tileX*25 - enemy.getX()) <=24 && abs(tileY*25-i*25 - enemy.getY()) <=24)
-                    enemy.die();
+                if(abs(tileX*25 - player.getX()) <=24 && abs(tileY*25-i*25 - player.getY()) <=24)
+                    player.die();
 
                 Iterator<Fragile> it = fragiles.iterator();
 

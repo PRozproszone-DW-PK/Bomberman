@@ -2,6 +2,7 @@ package sample.Tasks;
 
 import javafx.application.Platform;
 import javafx.concurrent.Task;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import sample.Controllers.GameController;
 import sample.Game.Board;
@@ -9,14 +10,19 @@ import sample.Game.GameStatus;
 import sample.ServerCommunicator;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 public class GameTask extends Task<Void> {
 
     private Board board;
+    private ExecutorService exec;
 
     public GameTask(Board board)
     {
         this.board = board;
+        exec = Executors.newSingleThreadExecutor();
     }
 
     @Override
@@ -61,15 +67,16 @@ public class GameTask extends Task<Void> {
                 int enemy_bomb_state = Integer.parseInt((in.substring(28,29)));
                 int mov_number = Integer.parseInt((in.substring(29,33)));
                 int back = Integer.parseInt((in.substring(33,34)));
-
                 Platform.runLater(() -> {
-
                     if(back==1) {
                         for (int i = 0; i < board.getMoves().size(); i++) {
                             if (mov_number == board.getMoves().get(i).getMov_number()) {
-                                if (board.getMoves().get(i).getMy_x() == my_x && board.getMoves().get(i).getMy_y() == my_y) {
+                                if (board.getMoves().get(i).getMy_x() == my_x && board.getMoves().get(i).getMy_y() == my_y)
+                                {
                                     board.getMoves().remove(i);
-                                } else {
+                                }
+                                else
+                                {
                                     board.getPlayer().setX(my_x);
                                     board.getPlayer().setY(my_y);
                                     board.getPlayer().setMovCounter(mov_number);
@@ -79,71 +86,59 @@ public class GameTask extends Task<Void> {
                             }
                         }
 
-                        if (board.getEnemyMoves().size() >= 2) {
-                            if (board.getEnemyMoves().get(board.getEnemyMoves().size()).getMy_x() - board.getEnemyMoves().get(board.getEnemyMoves().size() - 1).getMy_x() < 0) {
-                                //PRAWO
-                                //board.getEnemy().setX(board.getEnemy().getX()+5);
-                                board.getEnemy().setX(enemy_x+5);
-
-                            }
-                            if (board.getEnemyMoves().get(board.getEnemyMoves().size()).getMy_x() - board.getEnemyMoves().get(board.getEnemyMoves().size() - 1).getMy_x() > 0) {
-                                //LEWO
-                                board.getEnemy().setX(enemy_x-5);
-
-                            }
-                            if (board.getEnemyMoves().get(board.getEnemyMoves().size()).getMy_y() - board.getEnemyMoves().get(board.getEnemyMoves().size() - 1).getMy_y() < 0) {
-                                //Dół
-
-                                board.getEnemy().setY(enemy_y+5);
-                            }
-                            if (board.getEnemyMoves().get(board.getEnemyMoves().size()).getMy_y() - board.getEnemyMoves().get(board.getEnemyMoves().size() - 1).getMy_y() > 0) {
-                                //góra
-
-                                board.getEnemy().setY(enemy_y-5);
-                            }
+                        if(my_bomb_state==1)
+                        {
+                            board.getPlayer().getBomb().changeColor(Color.BLACK);
+                        }
+                        else if(my_bomb_state==2)
+                        {
+                            board.getPlayer().getBomb().changeColor(Color.ORANGE);
+                        }
+                        else if(my_bomb_state==3)
+                        {
+                            board.getPlayer().getBomb().changeColor(Color.RED);
+                        }
+                        else if(my_bomb_state==4)
+                        {
+                            //ServerCommunicator sc = ServerCommunicator.getInstance();
+                            exec.submit(new BombTask(board.getPlayer().getBomb()));
+                            // board.getPlayer().getBomb().explode(sc.getBoard().getCanvas(),sc.getBoard().getPlayground(),sc.getBoard().getPlayer(),sc.getBoard().getFragiles());
+                            //board.getPlayer().getBomb().setPlaced(false);
                         }
                     }
                     else {
-                        board.addEnemyMov(new GameStatus(enemy_bomb_x, enemy_bomb_y, mov_number));
+
                         board.getEnemy().setX(enemy_x);
                         board.getEnemy().setY(enemy_y);
+
+                        if(enemy_bomb_state==1)
+                        {
+                            board.getEnemy().placeBomb();
+                            board.getEnemy().getBomb().changeColor(Color.BLACK);
+                        }
+                        else if(enemy_bomb_state==2)
+                        {
+                            board.getEnemy().getBomb().changeColor(Color.ORANGE);
+                        }
+                        else if(enemy_bomb_state==3)
+                        {
+                            board.getEnemy().getBomb().changeColor(Color.RED);
+                        }
+                        else if(enemy_bomb_state==4)
+                        {
+                            //ServerCommunaicator sc = ServerCommunicator.getInstance();
+                            exec.submit(new BombTask(board.getEnemy().getBomb()));
+                            //new BombTask(board.getEnemy().getBomb()).run();
+                            //board.getEnemy().getBomb().explode(sc.getBoard().getCanvas(),sc.getBoard().getPlayground(),sc.getBoard().getPlayer(),sc.getBoard().getFragiles());
+                            //board.getEnemy().getBomb().setPlaced(false);
+                        }
                     }
 
-
-
-
-                    //Platform.runLater(() -> ServerCommunicator.getInstance().placeBomb(board.getEnemy()));
                     board.drawBoard();
                 });
 
             }
 
-            /*else if(in.substring(0,3).equals("mov"))
-            {
-                int x = Integer.parseInt((in.substring(3,6)));
-                int y = Integer.parseInt((in.substring(6,9)));
-
-                Platform.runLater(() -> {
-                    board.getEnemy().setX(x);
-                    board.getEnemy().setY(y);
-                    board.drawBoard();
-                });
-            }
-            else if(in.substring(0,3).equals("bmb"))
-            {
-                Platform.runLater(() -> ServerCommunicator.getInstance().placeBomb(board.getEnemy()));
-            }
-            else if(in.substring(0,3).equals("ymv"))
-            {
-                int x = Integer.parseInt((in.substring(3,6)));
-                int y = Integer.parseInt((in.substring(6,9)));
-
-                Platform.runLater(() -> {
-                    board.getPlayer().setX(x);
-                    board.getPlayer().setY(y);
-                    board.drawBoard();
-                });
-            }*/
         }
 
         return null;

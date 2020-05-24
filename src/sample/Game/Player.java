@@ -84,7 +84,7 @@ public class Player extends BoardElement {
         {
             incrementMovCounter();
             bomb.place(((x+12)/25)*25,((y+12)/25)*25);
-            ServerCommunicator.getInstance().placeBomb(this);
+            //ServerCommunicator.getInstance().placeBomb(this);
             //ServerCommunicator.getInstance().bombMsg();
         }
     }

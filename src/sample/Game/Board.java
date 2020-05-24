@@ -17,20 +17,16 @@ public class Board {
     private Player player;
     private Player enemy;
     private ArrayList<GameStatus> moves;
-    private ArrayList<GameStatus> enemy_moves;
+
 
     public ArrayList<GameStatus> getMoves() {
         return moves;
     }
-    public ArrayList<GameStatus> getEnemyMoves() {
-        return enemy_moves;
-    }
+
     public void addMov(GameStatus gs) {
         moves.add(gs);
     }
-    public void addEnemyMov(GameStatus gs) {
-        enemy_moves.add(gs);
-    }
+
 
     public Board(Canvas canvas) {
         this.canvas = canvas;
@@ -38,7 +34,7 @@ public class Board {
         height=15;
         playground = new BoardElement[width][height];
         moves = new ArrayList<>();
-        enemy_moves = new ArrayList<>();
+
         fragiles = new ArrayList<>();
         char map[][] =
                {{'w','w','w','w','w','w','w','w','w','w','w','w','w','w','w'},
