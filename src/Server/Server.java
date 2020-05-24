@@ -21,7 +21,7 @@ public class Server {
     public void start()
     {
         try{
-            ServerSocket serverSocket = new ServerSocket(9797);
+            ServerSocket serverSocket = new ServerSocket(50000);
             player1 = serverSocket.accept();
             System.out.println("Player 1 connected");
             player2 = serverSocket.accept();

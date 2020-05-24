@@ -47,8 +47,8 @@ public class PlayerTask implements Runnable {
                             server2.start();
                             break;
                         case "end":
-                            enemySocket.getOutputStream().write("los".getBytes());
-                            socket.getOutputStream().write("win".getBytes());
+                            enemySocket.getOutputStream().write("win".getBytes());
+                            socket.getOutputStream().write("los".getBytes());
                             socket.close();
                             enemySocket.close();
                             server.close();
@@ -56,7 +56,7 @@ public class PlayerTask implements Runnable {
                             server3.start();
                             break;
                         case "sta":
-                            //System.out.println(msg);
+                            System.out.println(msg);
                             game.addMove((msg.substring(3, 20))+ playerNum);
                             break;
                     }
@@ -65,7 +65,7 @@ public class PlayerTask implements Runnable {
             }
 
         } catch (IOException e) {
-           // e.printStackTrace();
+           e.printStackTrace();
         }
 
     }
