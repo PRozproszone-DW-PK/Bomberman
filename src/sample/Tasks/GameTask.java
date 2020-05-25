@@ -6,13 +6,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import sample.Controllers.GameController;
 import sample.Game.Board;
-import sample.Game.GameStatus;
 import sample.ServerCommunicator;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 
 public class GameTask extends Task<Void> {
 
@@ -26,13 +24,13 @@ public class GameTask extends Task<Void> {
     }
 
     @Override
-    protected Void call() throws Exception {
+    protected Void call() {
 
-        byte[] input = new byte[34];
+        byte[] input = new byte[22];
 
         while(true) {
             try {
-                ServerCommunicator.getInstance().getSocket().getInputStream().read(input, 0, 34);
+                ServerCommunicator.getInstance().getSocket().getInputStream().read(input, 0, 22);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -53,20 +51,14 @@ public class GameTask extends Task<Void> {
             }
             else if(in.substring(0,3).equals("sta"))
             {
-
-
                 int my_x = Integer.parseInt((in.substring(3,6)));
                 int my_y = Integer.parseInt((in.substring(6,9)));
                 int enemy_x = Integer.parseInt((in.substring(9,12)));
                 int enemy_y = Integer.parseInt((in.substring(12,15)));
-                int my_bomb_x = Integer.parseInt((in.substring(15,18)));
-                int my_bomb_y = Integer.parseInt((in.substring(18,21)));
-                int enemy_bomb_x = Integer.parseInt((in.substring(21,24)));
-                int enemy_bomb_y = Integer.parseInt((in.substring(24,27)));
-                int my_bomb_state = Integer.parseInt((in.substring(27,28)));
-                int enemy_bomb_state = Integer.parseInt((in.substring(28,29)));
-                int mov_number = Integer.parseInt((in.substring(29,33)));
-                int back = Integer.parseInt((in.substring(33,34)));
+                int my_bomb_state = Integer.parseInt((in.substring(15,16)));
+                int enemy_bomb_state = Integer.parseInt((in.substring(16,17)));
+                int mov_number = Integer.parseInt((in.substring(17,21)));
+                int back = Integer.parseInt((in.substring(21,22)));
                 Platform.runLater(() -> {
                     if(back==1) {
                         for (int i = 0; i < board.getMoves().size(); i++) {
@@ -100,10 +92,7 @@ public class GameTask extends Task<Void> {
                         }
                         else if(my_bomb_state==4)
                         {
-                            //ServerCommunicator sc = ServerCommunicator.getInstance();
                             exec.submit(new BombTask(board.getPlayer().getBomb()));
-                            // board.getPlayer().getBomb().explode(sc.getBoard().getCanvas(),sc.getBoard().getPlayground(),sc.getBoard().getPlayer(),sc.getBoard().getFragiles());
-                            //board.getPlayer().getBomb().setPlaced(false);
                         }
                     }
                     else {
@@ -126,11 +115,7 @@ public class GameTask extends Task<Void> {
                         }
                         else if(enemy_bomb_state==4)
                         {
-                            //ServerCommunaicator sc = ServerCommunicator.getInstance();
                             exec.submit(new BombTask(board.getEnemy().getBomb()));
-                            //new BombTask(board.getEnemy().getBomb()).run();
-                            //board.getEnemy().getBomb().explode(sc.getBoard().getCanvas(),sc.getBoard().getPlayground(),sc.getBoard().getPlayer(),sc.getBoard().getFragiles());
-                            //board.getEnemy().getBomb().setPlaced(false);
                         }
                     }
 

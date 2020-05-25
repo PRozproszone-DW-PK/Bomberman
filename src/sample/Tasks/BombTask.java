@@ -17,15 +17,17 @@ public class BombTask extends Task<Void> {
     @Override
     protected Void call() throws Exception {
 
-        ServerCommunicator sc = ServerCommunicator.getInstance();
-        bomb.setPlaced(false);
-        for (int i = 0; i < 50; i++) {
-            Thread.sleep(10);
-            Platform.runLater(() -> bomb.explode(sc.getBoard().getCanvas(),sc.getBoard().getPlayground(),sc.getBoard().getPlayer(),sc.getBoard().getFragiles()));
-        }
+        if(bomb.isPlaced())
+        {
+            ServerCommunicator sc = ServerCommunicator.getInstance();
 
-        sc.getBoard().drawBoard();
-        System.out.println("Gsfvfdd");
+            for (int i = 0; i < 50; i++) {
+                Thread.sleep(10);
+                Platform.runLater(() -> bomb.explode(sc.getBoard().getCanvas(),sc.getBoard().getPlayground(),sc.getBoard().getPlayer(),sc.getBoard().getFragiles()));
+            }
+            bomb.setPlaced(false);
+            Platform.runLater(()->sc.getBoard().drawBoard());
+        }
 
         return null;
     }

@@ -21,13 +21,7 @@ public class GameStatus {
         return my_y;
     }
 
-
-
     public int getMov_number() {
         return mov_number;
     }
-
-
-
-
 }

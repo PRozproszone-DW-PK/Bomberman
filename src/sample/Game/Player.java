@@ -2,8 +2,6 @@ package sample.Game;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import sample.Controllers.GameController;
 import sample.ServerCommunicator;
 
 public class Player extends BoardElement {
@@ -11,15 +9,11 @@ public class Player extends BoardElement {
     private int moveSpeed;
     private boolean alive;
     private Bomb bomb;
+    private int movCounter;
 
     public void setMovCounter(int movCounter) {
         this.movCounter = movCounter;
     }
-
-    private int movCounter;
-
-
-
 
     public Player(int x, int y, int width, int height, int moveSpeed, Color color) {
         super(x, y, width, height);
@@ -84,8 +78,6 @@ public class Player extends BoardElement {
         {
             incrementMovCounter();
             bomb.place(((x+12)/25)*25,((y+12)/25)*25);
-            //ServerCommunicator.getInstance().placeBomb(this);
-            //ServerCommunicator.getInstance().bombMsg();
         }
     }
 
