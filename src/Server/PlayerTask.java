@@ -19,7 +19,7 @@ public class PlayerTask implements Runnable {
     public PlayerTask(Socket socket, Socket enemySocket, int num, ServerSocket server, GameThread game)
     {
         playerNum = num;
-        buffer = new byte[20];
+        buffer = new byte[14];
         this.socket = socket;
         this.enemySocket = enemySocket;
         this.server = server;
@@ -31,9 +31,9 @@ public class PlayerTask implements Runnable {
         try(InputStream in = socket.getInputStream();
             BufferedInputStream buffIn = new BufferedInputStream(in)){
 
-            while(socket.isConnected() && !server.isClosed())
+            while(socket.isConnected() && !socket.isClosed() && !enemySocket.isClosed() && !server.isClosed())
             {
-                if(buffIn.read(buffer,0,20)!=-1) {
+                if(buffIn.available()>0 && buffIn.read(buffer,0,14)!=-1) {
 
                     String msg = new String(buffer);
 
@@ -56,8 +56,7 @@ public class PlayerTask implements Runnable {
                             server3.start();
                             break;
                         case "sta":
-                            System.out.println(msg);
-                            game.addMove((msg.substring(3, 20))+ playerNum);
+                            game.addMove((msg.substring(3, 14))+ playerNum);
                             break;
                     }
                 }
