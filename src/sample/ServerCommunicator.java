@@ -1,11 +1,8 @@
 package sample;
 
 import javafx.concurrent.Task;
-import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import sample.Game.Board;
-import sample.Game.Player;
-import sample.Tasks.BombTask;
 import sample.Tasks.GameTask;
 import sample.Tasks.ReadTask;
 import sample.Tasks.SendTask;
@@ -14,14 +11,12 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 
 public class ServerCommunicator {
 
     public static final ServerCommunicator SERVER_COMMUNICATOR = new ServerCommunicator();
     private ExecutorService executor = Executors.newSingleThreadExecutor();
     private ExecutorService gameExecutor = Executors.newSingleThreadExecutor();
-    private ThreadPoolExecutor poolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(2);
     private Socket server;
 
     private Board board;
@@ -39,7 +34,7 @@ public class ServerCommunicator {
     public void openSocket(String address)
     {
         try {
-            server = new Socket( address, 9797);
+            server = new Socket( address, 50000);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -69,21 +64,22 @@ public class ServerCommunicator {
         return board;
     }
 
-    public void moveMsg(int x, int y)
+    public void statusMsg(int x, int y,boolean bomb_status,int movCounter )
     {
         String plX = String.valueOf(x);
         String plY = String.valueOf(y);
+        String bmS;
+        if(bomb_status)bmS = String.valueOf(1);
+        else bmS = String.valueOf(0);
+
+
+        String mc = String.valueOf(movCounter);
 
         plX = "0".repeat(3-plX.length()) + plX;
         plY = "0".repeat(3-plY.length()) + plY;
-
-        Task<Void> sendTask = new SendTask("mov" + plX + plY, server);
-        executor.submit(sendTask);
-    }
-
-    public void bombMsg()
-    {
-        Task<Void> sendTask = new SendTask("bmb", server);
+        mc = "0".repeat(4-mc.length()) + mc;
+        System.out.println("sta" + plX + plY + bmS + mc );
+        Task<Void> sendTask = new SendTask("sta" + plX + plY + bmS + mc , server);
         executor.submit(sendTask);
     }
 
@@ -99,11 +95,6 @@ public class ServerCommunicator {
         gameExecutor.submit(gameTask);
     }
 
-    public void placeBomb(Player player)
-    {
-        player.getBomb().place(((player.getX()+12)/25)*25,((player.getY()+12)/25)*25);
-        poolExecutor.submit(new BombTask(player.getBomb()));
-    }
     public void endMsg()
     {
         Task<Void> sendTask = new SendTask("end", server);

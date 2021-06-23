@@ -7,7 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import sample.Controllers.GameController;
-import sample.Game.Board;
+import sample.ServerCommunicator;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -16,7 +16,6 @@ public class ReadTask extends Task<Void> {
 
     private Socket server;
     private Stage stage;
-    private Board board;
 
     public ReadTask(Socket server,Stage stage) {
         this.server = server;
@@ -59,6 +58,7 @@ public class ReadTask extends Task<Void> {
                         gc.setAlly(alX,alY);
                         gc.setEnemy(enX,enY);
                         window.show();
+                        Platform.runLater(()->ServerCommunicator.getInstance().getBoard().drawBoard());
 
                     } catch (IOException e) {
                         e.printStackTrace();

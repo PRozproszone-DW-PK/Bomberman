@@ -9,9 +9,9 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import sample.Game.Board;
+import sample.Game.GameStatus;
 import sample.ServerCommunicator;
 
 import java.io.IOException;
@@ -58,8 +58,13 @@ public class GameController implements Initializable {
                         board.getPlayer().getX()+board.getPlayer().getWidth()-1,
                         board.getPlayer().getY()-board.getPlayer().getMoveSpeed()))
                 {
-                    //board.getPlayer().moveUp();
-                    ServerCommunicator.getInstance().moveMsg(board.getPlayer().getX(),board.getPlayer().getY()-5);
+                    board.getPlayer().moveUp();
+                    board.getPlayer().incrementMovCounter();
+
+                    ServerCommunicator.getInstance().statusMsg(board.getPlayer().getX(),board.getPlayer().getY(),
+                            false, board.getPlayer().getMovCounter());
+
+                    board.addMov(new GameStatus(board.getPlayer().getX(), board.getPlayer().getY(), board.getPlayer().getMovCounter()));
                 }
             }
             else if(e.getCode()== KeyCode.A)
@@ -68,9 +73,13 @@ public class GameController implements Initializable {
                         board.getPlayer().getY()+board.getPlayer().getHeight()-1,
                         board.getPlayer().getX()-board.getPlayer().getMoveSpeed()))
                 {
-                    //board.getPlayer().moveLeft();
-                    //ServerCommunicator.getInstance().moveMsg(e.getCode());
-                    ServerCommunicator.getInstance().moveMsg(board.getPlayer().getX()-5,board.getPlayer().getY());
+                    board.getPlayer().moveLeft();
+                    board.getPlayer().incrementMovCounter();
+
+                    ServerCommunicator.getInstance().statusMsg(board.getPlayer().getX(),board.getPlayer().getY(),
+                            false, board.getPlayer().getMovCounter());
+
+                    board.addMov(new GameStatus(board.getPlayer().getX(), board.getPlayer().getY(), board.getPlayer().getMovCounter()));
                 }
             }
             else if(e.getCode()== KeyCode.S)
@@ -79,9 +88,13 @@ public class GameController implements Initializable {
                         board.getPlayer().getX()+board.getPlayer().getWidth()-1,
                         board.getPlayer().getY()+board.getPlayer().getHeight()+board.getPlayer().getMoveSpeed()-1))
                 {
-                    //board.getPlayer().moveDown();
-                    //ServerCommunicator.getInstance().moveMsg(e.getCode());
-                    ServerCommunicator.getInstance().moveMsg(board.getPlayer().getX(),board.getPlayer().getY()+5);
+                    board.getPlayer().moveDown();
+                    board.getPlayer().incrementMovCounter();
+
+                    ServerCommunicator.getInstance().statusMsg(board.getPlayer().getX(),board.getPlayer().getY(),
+                            false, board.getPlayer().getMovCounter());
+
+                    board.addMov(new GameStatus(board.getPlayer().getX(), board.getPlayer().getY(), board.getPlayer().getMovCounter()));
                 }
             }
             else if(e.getCode()== KeyCode.D)
@@ -90,19 +103,26 @@ public class GameController implements Initializable {
                         board.getPlayer().getY()+board.getPlayer().getHeight()-1,
                         board.getPlayer().getX()+board.getPlayer().getWidth()+board.getPlayer().getMoveSpeed()-1))
                 {
-                    //ServerCommunicator.getInstance().moveMsg(e.getCode());
-                    ServerCommunicator.getInstance().moveMsg(board.getPlayer().getX()+5,board.getPlayer().getY());
-                    //board.getPlayer().moveRight();
+                    board.getPlayer().moveRight();
+                    board.getPlayer().incrementMovCounter();
+
+                    ServerCommunicator.getInstance().statusMsg(board.getPlayer().getX(),board.getPlayer().getY(),
+                            false, board.getPlayer().getMovCounter());
+
+                    board.addMov(new GameStatus(board.getPlayer().getX(), board.getPlayer().getY(), board.getPlayer().getMovCounter()));
 
                 }
             }
             else if(e.getCode()== KeyCode.B)
             {
                 board.getPlayer().placeBomb();
+
+                ServerCommunicator.getInstance().statusMsg(board.getPlayer().getX(),board.getPlayer().getY(),
+                        board.getPlayer().getBomb().isPlaced(), board.getPlayer().getMovCounter());
+
             }
 
             board.drawBoard();
-
         });
     }
     public static void endGame(Stage window, String score)
