@@ -1,5 +1,6 @@
 # Bomberman - prosta gra sieciowa
 - projekt na potrzeby przedmiotu Przetwarzanie Rozproszone
+- aktualny kod na branchach Server---test oraz Client---test
 
 # Opis
 
