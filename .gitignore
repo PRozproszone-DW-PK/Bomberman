@@ -1,0 +1,10 @@
+#ignore Intellij Idea files
+.idea
+
+Bomberman2.iml
+Bomberman_client.iml
+
+out
+
+src/META-INF
+
