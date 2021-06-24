@@ -1,22 +1,38 @@
-# Bomberman - prosta gra sieciowa
-- projekt na potrzeby przedmiotu Przetwarzanie Rozproszone
-- aktualny kod na branchach Server---test oraz Client---test
+# Purpose / Motivation
 
-# Opis
+Group project made for Distributed Computing course.
 
-Prosty klasyczny bomberman:
-- gra 1 na 1
-- wygrywa ten, któremu uda się wysadzić przeciwnika
-- na planszy mogą znajdować się: gracze, bomby, skrzynki możliwe do rozwalenia
-- gracze mogą położyć na raz tylko 1 bombę
+Learning basics of:
+- distributed computing
+- sockets
+- multithreading
 
-Gracze za pośrednictwem serwera (mechanizm socketów) wysyłają do siebie:
-- informacje o ruchu (kierunek)
-- informacje o podkładaniu ładunków wybuchowych
+# General Info
 
-# Technologie
+Simple classic Bomberman game:
+- 1 versus 1
+- player loses on hit by explosion
+- objects on board:
+  - players
+  - bombs
+  - crates (can be destroyed)
+- players can place only one bomb at a time
+
+Players communicate with server (using socket mechanism) and send information about:
+- moves, direction of movement
+- placing a bomb
+
+# Technologies
+
 - Java
+- JavaFX
 
-# Twórcy
-- Dawid Wittbrodt 175682
-- Patryk Kitowski 175458
+# Future Works
+
+- New maps
+- More in-game mechanics
+- More modes (e.g. 2 vs 2, 1 vs 1 vs 1 vs 1)
+
+# Status
+
+Realization of the project has ended as it was submitted in the course
